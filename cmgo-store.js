@@ -4144,8 +4144,8 @@ void main() {
 .minbtn{flex:none;width:28px;height:28px;display:grid;place-items:center;padding:0;cursor:pointer;border-radius:50%;
   background:rgba(255,255,255,.1);border:1px solid var(--line);color:var(--ink)}
 .minbtn:hover{border-color:var(--ink)}
-.minbtn svg{width:12px;height:12px;transition:transform .2s}
-.panel.min .minbtn svg{transform:rotate(180deg)}
+.minbtn svg{width:12px;height:12px;transition:transform .2s;transform:rotate(180deg)}
+.panel.min .minbtn svg{transform:none}
 .head{display:grid;gap:6px}
 .top{display:flex;justify-content:space-between;align-items:center;gap:10px}
 .top .right{display:flex;align-items:center;gap:10px}
@@ -4199,6 +4199,8 @@ input[type=color]{width:38px;height:26px;padding:0;border:1px solid rgba(255,255
   .panel{position:relative;inset:auto;width:auto;margin:0;border-radius:0;border:0;border-top:1px solid var(--glass-edge);max-height:none;box-shadow:none;
     background:rgba(20,20,24,.82)}
   .panel.min{width:auto;max-width:none}
+  .minbtn svg{transform:none}
+  .panel.min .minbtn svg{transform:rotate(180deg)}
   .list{max-height:340px}
 }
 @media (prefers-reduced-motion:reduce){.status[data-state=fetch] i{animation:none}.sw{transition:none}}
