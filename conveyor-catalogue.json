@@ -1,5 +1,5 @@
 {
- "version": 2,
+ "version": "2026-10-28b",
  "units": "metres",
  "axes": "three.js y-up (converted from Blender: three = (x, z, -y))",
  "glb": "conveyor-scene.glb",
@@ -2884,10 +2884,217 @@
    "meshLOD0": "tee_staple_md_LOD0",
    "meshLOD1": "tee_staple_md_LOD1",
    "hanger": "black",
-   "LOD0_tris": 7735,
-   "LOD1_tris": 7735,
+   "LOD0_tris": 14156,
+   "LOD1_tris": 5240,
    "doubleSided": true,
-   "source": "Marvelous Designer drape on the conveyor hanger, V1 Knit Cotton Jersey"
+   "source": "Marvelous Designer drape on the conveyor hanger, 5001 Staple Tee, neck fixed by hand 28 Oct"
+  },
+  "hood_relax_md": {
+   "meshLOD0": "hood_relax_md_LOD0",
+   "meshLOD1": "hood_relax_md_LOD1",
+   "hanger": "black",
+   "LOD0_tris": 13997,
+   "LOD1_tris": 5112,
+   "doubleSided": true,
+   "source": "Marvelous Designer drape on the conveyor hanger, 5161 Relax Hood, hood laid down the back by hand 27 Oct"
+  },
+  "crew_heavy_md": {
+   "meshLOD0": "crew_heavy_md_LOD0",
+   "meshLOD1": "crew_heavy_md_LOD1",
+   "hanger": "black",
+   "LOD0_tris": 13999,
+   "LOD1_tris": 4997,
+   "doubleSided": true,
+   "source": "Marvelous Designer drape on the conveyor hanger, 5145 Heavy Crew, fixed by hand 27 Oct"
+  },
+  "tee_classic_md": {
+   "meshLOD0": "tee_classic_md_LOD0",
+   "meshLOD1": "tee_classic_md_LOD1",
+   "hanger": "black",
+   "LOD0_tris": 14160,
+   "LOD1_tris": 5246,
+   "doubleSided": true,
+   "source": "Marvelous Designer drape on the conveyor hanger, 5026 Classic Tee"
+  },
+  "tee_staple_ls_md": {
+   "meshLOD0": "tee_staple_ls_md_LOD0",
+   "meshLOD1": "tee_staple_ls_md_LOD1",
+   "hanger": "black",
+   "LOD0_tris": 14178,
+   "LOD1_tris": 5242,
+   "doubleSided": true,
+   "source": "Marvelous Designer drape on the conveyor hanger, 5020 Staple L/S Tee, hanger saved by hand 28 Oct"
+  },
+  "tank_barnard_md": {
+   "meshLOD0": "tank_barnard_md_LOD0",
+   "meshLOD1": "tank_barnard_md_LOD1",
+   "hanger": "black",
+   "LOD0_tris": 14133,
+   "LOD1_tris": 5247,
+   "doubleSided": true,
+   "source": "Marvelous Designer drape on the conveyor hanger, 5025 Barnard Tank"
+  },
+  "tee_heavy_md": {
+   "meshLOD0": "tee_heavy_md_LOD0",
+   "meshLOD1": "tee_heavy_md_LOD1",
+   "hanger": "black",
+   "LOD0_tris": 14204,
+   "LOD1_tris": 5292,
+   "doubleSided": true,
+   "source": "Marvelous Designer drape on the conveyor hanger, 5080 Heavy Tee"
+  },
+  "tee_block_md": {
+   "meshLOD0": "tee_block_md_LOD0",
+   "meshLOD1": "tee_block_md_LOD1",
+   "hanger": "black",
+   "LOD0_tris": 14220,
+   "LOD1_tris": 5300,
+   "doubleSided": true,
+   "source": "Marvelous Designer drape on the conveyor hanger, 5052 Block Oversized Tee"
+  },
+  "tee_stonewash_md": {
+   "meshLOD0": "tee_stonewash_md_LOD0",
+   "meshLOD1": "tee_stonewash_md_LOD1",
+   "hanger": "black",
+   "LOD0_tris": 14160,
+   "LOD1_tris": 5246,
+   "doubleSided": true,
+   "source": "Marvelous Designer drape on the conveyor hanger, 5040 Staple Stone Wash Tee"
+  },
+  "tee_stonewash_heavy_md": {
+   "meshLOD0": "tee_stonewash_heavy_md_LOD0",
+   "meshLOD1": "tee_stonewash_heavy_md_LOD1",
+   "hanger": "black",
+   "LOD0_tris": 14204,
+   "LOD1_tris": 5292,
+   "doubleSided": true,
+   "source": "Marvelous Designer drape on the conveyor hanger, 5085 Stone Wash Heavy Tee"
+  },
+  "tee_wos_maple_md": {
+   "meshLOD0": "tee_wos_maple_md_LOD0",
+   "meshLOD1": "tee_wos_maple_md_LOD1",
+   "hanger": "black",
+   "LOD0_tris": 14076,
+   "LOD1_tris": 5142,
+   "doubleSided": true,
+   "source": "Marvelous Designer drape on the conveyor hanger, 4001 Wo's Maple Tee (women's hanger, 82% wide)"
+  },
+  "tee_wos_crop_md": {
+   "meshLOD0": "tee_wos_crop_md_LOD0",
+   "meshLOD1": "tee_wos_crop_md_LOD1",
+   "hanger": "black",
+   "LOD0_tris": 14100,
+   "LOD1_tris": 5234,
+   "doubleSided": true,
+   "source": "Marvelous Designer drape on the conveyor hanger, 4062 Wo's Crop Tee (women's hanger, 82% wide)"
+  },
+  "tank_crop_md": {
+   "meshLOD0": "tank_crop_md_LOD0",
+   "meshLOD1": "tank_crop_md_LOD1",
+   "hanger": "black",
+   "LOD0_tris": 12911,
+   "LOD1_tris": 4999,
+   "doubleSided": true,
+   "source": "Marvelous Designer drape on the conveyor hanger, 4035 Wo's Faded Rib Crop Tank (women's hanger, 82% wide)"
+  },
+  "tank_reg_md": {
+   "meshLOD0": "tank_reg_md_LOD0",
+   "meshLOD1": "tank_reg_md_LOD1",
+   "hanger": "black",
+   "LOD0_tris": 13999,
+   "LOD1_tris": 4999,
+   "doubleSided": true,
+   "source": "Marvelous Designer drape on the conveyor hanger, 4034 Wo's Faded Rib Tank (women's hanger, 82% wide)"
+  },
+  "crew_wos_relax_md": {
+   "meshLOD0": "crew_wos_relax_md_LOD0",
+   "meshLOD1": "crew_wos_relax_md_LOD1",
+   "hanger": "black",
+   "LOD0_tris": 13999,
+   "LOD1_tris": 4999,
+   "doubleSided": true,
+   "source": "Marvelous Designer drape on the conveyor hanger, 4160 Wo's Relax Crew (women's hanger, 82% wide), sleeves 3 cm shorter 28 Oct"
+  },
+  "hood_wos_relax_md": {
+   "meshLOD0": "hood_wos_relax_md_LOD0",
+   "meshLOD1": "hood_wos_relax_md_LOD1",
+   "hanger": "black",
+   "LOD0_tris": 13996,
+   "LOD1_tris": 5068,
+   "doubleSided": true,
+   "source": "Marvelous Designer drape on the conveyor hanger, 4161 Wo's Relax Hood (women's hanger, 82% wide), sleeves 3 cm shorter 28 Oct"
+  },
+  "hood_wos_crop_md": {
+   "meshLOD0": "hood_wos_crop_md_LOD0",
+   "meshLOD1": "hood_wos_crop_md_LOD1",
+   "hanger": "black",
+   "LOD0_tris": 13998,
+   "LOD1_tris": 5010,
+   "doubleSided": true,
+   "source": "Marvelous Designer drape on the conveyor hanger, 4168 Wo's Relax Crop Hood (women's hanger, 82% wide), sleeves 3 cm shorter 28 Oct"
+  },
+  "hood_heavy_md": {
+   "meshLOD0": "hood_heavy_md_LOD0",
+   "meshLOD1": "hood_heavy_md_LOD1",
+   "hanger": "black",
+   "LOD0_tris": 13998,
+   "LOD1_tris": 5095,
+   "doubleSided": true,
+   "source": "Marvelous Designer drape on the conveyor hanger, 5146 Heavy Hood"
+  },
+  "hood_made_md": {
+   "meshLOD0": "hood_made_md_LOD0",
+   "meshLOD1": "hood_made_md_LOD1",
+   "hanger": "black",
+   "LOD0_tris": 13999,
+   "LOD1_tris": 5093,
+   "doubleSided": true,
+   "source": "Marvelous Designer drape on the conveyor hanger, 5151 Made Hood"
+  },
+  "hood_zip_md": {
+   "meshLOD0": "hood_zip_md_LOD0",
+   "meshLOD1": "hood_zip_md_LOD1",
+   "hanger": "black",
+   "LOD0_tris": 13995,
+   "LOD1_tris": 5131,
+   "doubleSided": true,
+   "source": "Marvelous Designer drape on the conveyor hanger, 5148 Heavy Zip Hood"
+  },
+  "polo_hivis_md": {
+   "meshLOD0": "polo_hivis_md_LOD0",
+   "meshLOD1": "polo_hivis_md_LOD1",
+   "hanger": "black",
+   "LOD0_tris": 13997,
+   "LOD1_tris": 4997,
+   "doubleSided": true,
+   "source": "Marvelous Designer drape on the conveyor hanger, 6HVNC JB's Hi-Vis Polo"
+  },
+  "vest_hivis_md": {
+   "meshLOD0": "vest_hivis_md_LOD0",
+   "meshLOD1": "vest_hivis_md_LOD1",
+   "hanger": "black",
+   "LOD0_tris": 13998,
+   "LOD1_tris": 4998,
+   "doubleSided": true,
+   "source": "Marvelous Designer drape on the conveyor hanger, 6DNSZ JB's Hi-Vis Zip Vest"
+  },
+  "shirt_hivis_md": {
+   "meshLOD0": "shirt_hivis_md_LOD0",
+   "meshLOD1": "shirt_hivis_md_LOD1",
+   "hanger": "black",
+   "LOD0_tris": 13996,
+   "LOD1_tris": 5134,
+   "doubleSided": true,
+   "source": "Marvelous Designer drape on the conveyor hanger, BS6896 Bisley Hi-Vis Drill Shirt"
+  },
+  "apron_carrie_md": {
+   "meshLOD0": "apron_carrie_md_LOD0",
+   "meshLOD1": "apron_carrie_md_LOD1",
+   "hanger": "black",
+   "LOD0_tris": 14000,
+   "LOD1_tris": 4999,
+   "doubleSided": true,
+   "source": "Marvelous Designer drape on the conveyor hanger, 1082 Carrie Apron"
   }
  },
  "groups": {
@@ -2968,128 +3175,182 @@
     },
     {
      "style": "Classic Tee",
-     "cut": "tee_staple",
+     "cut": "tee_classic_md",
      "color": "#ffffff",
      "colorName": "White",
      "fabric": "jersey",
      "trimFactor": 0.93,
-     "placeholder": true,
      "ref": "5026"
     },
     {
      "style": "Classic Tee",
-     "cut": "tee_staple",
+     "cut": "tee_classic_md",
      "color": "#000000",
      "colorName": "Black",
      "fabric": "jersey",
      "trimFactor": 0.93,
-     "placeholder": true,
      "ref": "5026"
     },
     {
      "style": "Classic Tee",
-     "cut": "tee_staple",
+     "cut": "tee_classic_md",
      "color": "#d1cdca",
      "colorName": "Bone",
      "fabric": "jersey",
      "trimFactor": 0.93,
-     "placeholder": true,
      "ref": "5026"
     },
     {
      "style": "Classic Tee",
-     "cut": "tee_staple",
+     "cut": "tee_classic_md",
      "color": "#1e202c",
      "colorName": "Navy",
      "fabric": "jersey",
      "trimFactor": 0.93,
-     "placeholder": true,
      "ref": "5026"
+    },
+    {
+     "style": "Staple L/S Tee",
+     "cut": "tee_staple_ls_md",
+     "color": "#ffffff",
+     "colorName": "White",
+     "fabric": "jersey",
+     "trimFactor": 0.93,
+     "ref": "5020",
+     "coloursToConfirm": true
+    },
+    {
+     "style": "Staple L/S Tee",
+     "cut": "tee_staple_ls_md",
+     "color": "#000000",
+     "colorName": "Black",
+     "fabric": "jersey",
+     "trimFactor": 0.93,
+     "ref": "5020",
+     "coloursToConfirm": true
+    },
+    {
+     "style": "Staple L/S Tee",
+     "cut": "tee_staple_ls_md",
+     "color": "#1e202c",
+     "colorName": "Navy",
+     "fabric": "jersey",
+     "trimFactor": 0.93,
+     "ref": "5020",
+     "coloursToConfirm": true
+    },
+    {
+     "style": "Staple L/S Tee",
+     "cut": "tee_staple_ls_md",
+     "color": "#a4a4a2",
+     "colorName": "Grey Marle",
+     "fabric": "jersey",
+     "trimFactor": 0.93,
+     "ref": "5020",
+     "coloursToConfirm": true
+    },
+    {
+     "style": "Barnard Tank",
+     "cut": "tank_barnard_md",
+     "color": "#ffffff",
+     "colorName": "White",
+     "fabric": "jersey",
+     "trimFactor": 0.93,
+     "ref": "5025",
+     "coloursToConfirm": true
+    },
+    {
+     "style": "Barnard Tank",
+     "cut": "tank_barnard_md",
+     "color": "#000000",
+     "colorName": "Black",
+     "fabric": "jersey",
+     "trimFactor": 0.93,
+     "ref": "5025",
+     "coloursToConfirm": true
+    },
+    {
+     "style": "Barnard Tank",
+     "cut": "tank_barnard_md",
+     "color": "#a4a4a2",
+     "colorName": "Grey Marle",
+     "fabric": "jersey",
+     "trimFactor": 0.93,
+     "ref": "5025",
+     "coloursToConfirm": true
     }
    ],
-   "soon": [
-    {
-     "name": "Staple L/S Tee",
-     "ref": "5020"
-    }
-   ]
+   "soon": []
   },
   "heavyweight_tees": {
    "label": "Heavyweight & Oversized",
    "items": [
     {
      "style": "Heavy Tee",
-     "cut": "tee_regular",
+     "cut": "tee_heavy_md",
      "color": "#000000",
      "colorName": "Black",
      "fabric": "jersey",
      "trimFactor": 1.0,
-     "placeholder": true,
      "ref": "5080"
     },
     {
      "style": "Heavy Tee",
-     "cut": "tee_regular",
+     "cut": "tee_heavy_md",
      "color": "#e4e0d4",
      "colorName": "Ecru",
      "fabric": "jersey",
      "trimFactor": 1.0,
-     "placeholder": true,
      "ref": "5080"
     },
     {
      "style": "Heavy Tee",
-     "cut": "tee_regular",
+     "cut": "tee_heavy_md",
      "color": "#1d342a",
      "colorName": "Pine Green",
      "fabric": "jersey",
      "trimFactor": 1.0,
-     "placeholder": true,
      "ref": "5080"
     },
     {
      "style": "Heavy Tee",
-     "cut": "tee_regular",
+     "cut": "tee_heavy_md",
      "color": "#a4a4a2",
      "colorName": "Grey Marle",
      "fabric": "marle",
      "trimFactor": 1.0,
-     "placeholder": true,
      "ref": "5080"
     },
     {
      "style": "Block Oversized Tee",
-     "cut": "tee_boxy",
+     "cut": "tee_block_md",
      "color": "#000000",
      "colorName": "Black",
      "fabric": "jersey",
      "trimFactor": 1.0,
-     "placeholder": true,
      "ref": "5052"
     },
     {
      "style": "Block Oversized Tee",
-     "cut": "tee_boxy",
+     "cut": "tee_block_md",
      "color": "#e4e0d4",
      "colorName": "Ecru",
      "fabric": "jersey",
      "trimFactor": 1.0,
-     "placeholder": true,
      "ref": "5052"
     },
     {
      "style": "Block Oversized Tee",
-     "cut": "tee_boxy",
+     "cut": "tee_block_md",
      "color": "#1e202c",
      "colorName": "Navy",
      "fabric": "jersey",
      "trimFactor": 1.0,
-     "placeholder": true,
      "ref": "5052"
     },
     {
      "style": "Staple Stone Wash Tee",
-     "cut": "tee_regular",
+     "cut": "tee_stonewash_md",
      "color": "#302c2b",
      "colorName": "Black Stone",
      "fabric": "stonewash",
@@ -3098,7 +3359,7 @@
     },
     {
      "style": "Staple Stone Wash Tee",
-     "cut": "tee_regular",
+     "cut": "tee_stonewash_md",
      "color": "#88878d",
      "colorName": "Ash Stone",
      "fabric": "stonewash",
@@ -3107,7 +3368,7 @@
     },
     {
      "style": "Staple Stone Wash Tee",
-     "cut": "tee_regular",
+     "cut": "tee_stonewash_md",
      "color": "#3c4259",
      "colorName": "Blue Stone",
      "fabric": "stonewash",
@@ -3116,7 +3377,7 @@
     },
     {
      "style": "Stone Wash Heavy Tee",
-     "cut": "tee_boxy",
+     "cut": "tee_stonewash_heavy_md",
      "color": "#302c2b",
      "colorName": "Black Stone",
      "fabric": "stonewash",
@@ -3125,7 +3386,7 @@
     },
     {
      "style": "Stone Wash Heavy Tee",
-     "cut": "tee_boxy",
+     "cut": "tee_stonewash_heavy_md",
      "color": "#4e4e4e",
      "colorName": "Grey Stone",
      "fabric": "stonewash",
@@ -3134,7 +3395,7 @@
     },
     {
      "style": "Stone Wash Heavy Tee",
-     "cut": "tee_boxy",
+     "cut": "tee_stonewash_heavy_md",
      "color": "#717171",
      "colorName": "Coal Stone",
      "fabric": "stonewash",
@@ -3149,47 +3410,43 @@
    "items": [
     {
      "style": "Wo's Maple Tee",
-     "cut": "tee_staple",
+     "cut": "tee_wos_maple_md",
      "color": "#ffffff",
      "colorName": "White",
      "fabric": "jersey",
      "trimFactor": 0.93,
-     "placeholder": true,
      "ref": "4001"
     },
     {
      "style": "Wo's Maple Tee",
-     "cut": "tee_staple",
+     "cut": "tee_wos_maple_md",
      "color": "#f6d5c6",
      "colorName": "Pale Pink",
      "fabric": "jersey",
      "trimFactor": 0.93,
-     "placeholder": true,
      "ref": "4001"
     },
     {
      "style": "Wo's Maple Tee",
-     "cut": "tee_staple",
+     "cut": "tee_wos_maple_md",
      "color": "#000000",
      "colorName": "Black",
      "fabric": "jersey",
      "trimFactor": 0.93,
-     "placeholder": true,
      "ref": "4001"
     },
     {
      "style": "Wo's Maple Tee",
-     "cut": "tee_staple",
+     "cut": "tee_wos_maple_md",
      "color": "#f4f0d7",
      "colorName": "Butter",
      "fabric": "jersey",
      "trimFactor": 0.93,
-     "placeholder": true,
      "ref": "4001"
     },
     {
      "style": "Wo's Faded Rib Crop Tank",
-     "cut": "tank_crop",
+     "cut": "tank_crop_md",
      "color": "#424243",
      "colorName": "Faded Black",
      "fabric": "rib",
@@ -3198,7 +3455,7 @@
     },
     {
      "style": "Wo's Faded Rib Crop Tank",
-     "cut": "tank_crop",
+     "cut": "tank_crop_md",
      "color": "#797470",
      "colorName": "Faded Grey",
      "fabric": "rib",
@@ -3207,7 +3464,7 @@
     },
     {
      "style": "Wo's Faded Rib Tank",
-     "cut": "tank_reg",
+     "cut": "tank_reg_md",
      "color": "#424243",
      "colorName": "Faded Black",
      "fabric": "rib",
@@ -3216,27 +3473,184 @@
     },
     {
      "style": "Wo's Faded Rib Tank",
-     "cut": "tank_reg",
+     "cut": "tank_reg_md",
      "color": "#797470",
      "colorName": "Faded Grey",
      "fabric": "rib",
      "trimFactor": 1.22,
      "ref": "4034"
+    },
+    {
+     "style": "Wo's Crop Tee",
+     "cut": "tee_wos_crop_md",
+     "color": "#ffffff",
+     "colorName": "White",
+     "fabric": "jersey",
+     "trimFactor": 0.93,
+     "ref": "4062",
+     "coloursToConfirm": true
+    },
+    {
+     "style": "Wo's Crop Tee",
+     "cut": "tee_wos_crop_md",
+     "color": "#000000",
+     "colorName": "Black",
+     "fabric": "jersey",
+     "trimFactor": 0.93,
+     "ref": "4062",
+     "coloursToConfirm": true
+    },
+    {
+     "style": "Wo's Crop Tee",
+     "cut": "tee_wos_crop_md",
+     "color": "#d1cdca",
+     "colorName": "Bone",
+     "fabric": "jersey",
+     "trimFactor": 0.93,
+     "ref": "4062",
+     "coloursToConfirm": true
+    },
+    {
+     "style": "Wo's Relax Crew",
+     "cut": "crew_wos_relax_md",
+     "color": "#000000",
+     "colorName": "Black",
+     "fabric": "fleece",
+     "trimFactor": 0.95,
+     "ref": "4160",
+     "coloursToConfirm": true
+    },
+    {
+     "style": "Wo's Relax Crew",
+     "cut": "crew_wos_relax_md",
+     "color": "#a4a4a2",
+     "colorName": "Grey Marle",
+     "fabric": "fleece",
+     "trimFactor": 0.95,
+     "ref": "4160",
+     "coloursToConfirm": true
+    },
+    {
+     "style": "Wo's Relax Crew",
+     "cut": "crew_wos_relax_md",
+     "color": "#e4e0d4",
+     "colorName": "Ecru",
+     "fabric": "fleece",
+     "trimFactor": 0.95,
+     "ref": "4160",
+     "coloursToConfirm": true
+    },
+    {
+     "style": "Wo's Relax Hood",
+     "cut": "hood_wos_relax_md",
+     "color": "#000000",
+     "colorName": "Black",
+     "fabric": "fleece",
+     "trimFactor": 0.95,
+     "ref": "4161",
+     "coloursToConfirm": true
+    },
+    {
+     "style": "Wo's Relax Hood",
+     "cut": "hood_wos_relax_md",
+     "color": "#a4a4a2",
+     "colorName": "Grey Marle",
+     "fabric": "fleece",
+     "trimFactor": 0.95,
+     "ref": "4161",
+     "coloursToConfirm": true
+    },
+    {
+     "style": "Wo's Relax Hood",
+     "cut": "hood_wos_relax_md",
+     "color": "#e4e0d4",
+     "colorName": "Ecru",
+     "fabric": "fleece",
+     "trimFactor": 0.95,
+     "ref": "4161",
+     "coloursToConfirm": true
+    },
+    {
+     "style": "Wo's Relax Crop Hood",
+     "cut": "hood_wos_crop_md",
+     "color": "#000000",
+     "colorName": "Black",
+     "fabric": "fleece",
+     "trimFactor": 0.95,
+     "ref": "4168",
+     "coloursToConfirm": true
+    },
+    {
+     "style": "Wo's Relax Crop Hood",
+     "cut": "hood_wos_crop_md",
+     "color": "#a4a4a2",
+     "colorName": "Grey Marle",
+     "fabric": "fleece",
+     "trimFactor": 0.95,
+     "ref": "4168",
+     "coloursToConfirm": true
+    },
+    {
+     "style": "Wo's Relax Crop Hood",
+     "cut": "hood_wos_crop_md",
+     "color": "#e4e0d4",
+     "colorName": "Ecru",
+     "fabric": "fleece",
+     "trimFactor": 0.95,
+     "ref": "4168",
+     "coloursToConfirm": true
     }
    ],
-   "soon": [
+   "soon": []
+  },
+  "crews": {
+   "label": "Crews",
+   "items": [
     {
-     "name": "Wo's Crop Tee",
-     "ref": "4062"
+     "style": "Heavy Crew",
+     "cut": "crew_heavy_md",
+     "color": "#000000",
+     "colorName": "Black",
+     "fabric": "fleece",
+     "trimFactor": 0.93,
+     "ref": "5145"
+    },
+    {
+     "style": "Heavy Crew",
+     "cut": "crew_heavy_md",
+     "color": "#d1cdca",
+     "colorName": "Bone",
+     "fabric": "fleece",
+     "trimFactor": 0.93,
+     "ref": "5145"
+    },
+    {
+     "style": "Heavy Crew",
+     "cut": "crew_heavy_md",
+     "color": "#323031",
+     "colorName": "Coal",
+     "fabric": "fleece",
+     "trimFactor": 0.93,
+     "ref": "5145"
+    },
+    {
+     "style": "Heavy Crew",
+     "cut": "crew_heavy_md",
+     "color": "#1d342a",
+     "colorName": "Pine Green",
+     "fabric": "fleece",
+     "trimFactor": 0.93,
+     "ref": "5145"
     }
-   ]
+   ],
+   "soon": []
   },
   "hoodies": {
    "label": "Hoodies",
    "items": [
     {
      "style": "Relax Hood",
-     "cut": "hood_standard",
+     "cut": "hood_relax_md",
      "color": "#000000",
      "colorName": "Black",
      "fabric": "fleece",
@@ -3245,7 +3659,7 @@
     },
     {
      "style": "Relax Hood",
-     "cut": "hood_standard",
+     "cut": "hood_relax_md",
      "color": "#a4a4a2",
      "colorName": "Grey Marle",
      "fabric": "marle",
@@ -3254,7 +3668,7 @@
     },
     {
      "style": "Relax Hood",
-     "cut": "hood_standard",
+     "cut": "hood_relax_md",
      "color": "#626367",
      "colorName": "Shadow",
      "fabric": "fleece",
@@ -3263,7 +3677,7 @@
     },
     {
      "style": "Relax Hood",
-     "cut": "hood_standard",
+     "cut": "hood_relax_md",
      "color": "#253668",
      "colorName": "Liberty",
      "fabric": "fleece",
@@ -3272,7 +3686,7 @@
     },
     {
      "style": "Relax Hood",
-     "cut": "hood_standard",
+     "cut": "hood_relax_md",
      "color": "#e4e0d4",
      "colorName": "Ecru",
      "fabric": "fleece",
@@ -3281,47 +3695,43 @@
     },
     {
      "style": "Heavy Hood",
-     "cut": "hood_standard",
+     "cut": "hood_heavy_md",
      "color": "#000000",
      "colorName": "Black",
      "fabric": "fleece",
      "trimFactor": 0.93,
-     "placeholder": true,
      "ref": "5146"
     },
     {
      "style": "Heavy Hood",
-     "cut": "hood_standard",
+     "cut": "hood_heavy_md",
      "color": "#d1cdca",
      "colorName": "Bone",
      "fabric": "fleece",
      "trimFactor": 0.93,
-     "placeholder": true,
      "ref": "5146"
     },
     {
      "style": "Heavy Hood",
-     "cut": "hood_standard",
+     "cut": "hood_heavy_md",
      "color": "#323031",
      "colorName": "Coal",
      "fabric": "fleece",
      "trimFactor": 0.93,
-     "placeholder": true,
      "ref": "5146"
     },
     {
      "style": "Heavy Hood",
-     "cut": "hood_standard",
+     "cut": "hood_heavy_md",
      "color": "#1d342a",
      "colorName": "Pine Green",
      "fabric": "fleece",
      "trimFactor": 0.93,
-     "placeholder": true,
      "ref": "5146"
     },
     {
      "style": "Made Hood",
-     "cut": "hood_made",
+     "cut": "hood_made_md",
      "color": "#fbf7ee",
      "colorName": "Natural",
      "fabric": "fleece",
@@ -3330,7 +3740,7 @@
     },
     {
      "style": "Made Hood",
-     "cut": "hood_made",
+     "cut": "hood_made_md",
      "color": "#a4a4a2",
      "colorName": "Grey Marle",
      "fabric": "marle",
@@ -3339,7 +3749,7 @@
     },
     {
      "style": "Made Hood",
-     "cut": "hood_made",
+     "cut": "hood_made_md",
      "color": "#2d2a33",
      "colorName": "Ink Blue",
      "fabric": "fleece",
@@ -3348,7 +3758,7 @@
     },
     {
      "style": "Made Hood",
-     "cut": "hood_made",
+     "cut": "hood_made_md",
      "color": "#000000",
      "colorName": "Black",
      "fabric": "fleece",
@@ -3357,7 +3767,7 @@
     },
     {
      "style": "Heavy Zip Hood",
-     "cut": "hood_zip",
+     "cut": "hood_zip_md",
      "color": "#000000",
      "colorName": "Black",
      "fabric": "fleece",
@@ -3367,13 +3777,69 @@
    ],
    "soon": []
   },
-  "crews": {
-   "label": "Crews",
-   "items": [],
-   "soon": [
+  "workwear": {
+   "label": "Workwear",
+   "soon": [],
+   "items": [
     {
-     "name": "Heavy Crew",
-     "ref": "5145"
+     "style": "JB's Hi-Vis Polo",
+     "cut": "polo_hivis_md",
+     "color": "#d4f000",
+     "colorName": "Hi-Vis Yellow",
+     "fabric": "jersey",
+     "trimFactor": 1.0,
+     "ref": "6HVNC",
+     "coloursToConfirm": true
+    },
+    {
+     "style": "JB's Hi-Vis Polo",
+     "cut": "polo_hivis_md",
+     "color": "#ff6b12",
+     "colorName": "Hi-Vis Orange",
+     "fabric": "jersey",
+     "trimFactor": 1.0,
+     "ref": "6HVNC",
+     "coloursToConfirm": true
+    },
+    {
+     "style": "JB's Hi-Vis Zip Vest",
+     "cut": "vest_hivis_md",
+     "color": "#d4f000",
+     "colorName": "Hi-Vis Yellow",
+     "fabric": "jersey",
+     "trimFactor": 1.0,
+     "ref": "6DNSZ",
+     "coloursToConfirm": true
+    },
+    {
+     "style": "JB's Hi-Vis Zip Vest",
+     "cut": "vest_hivis_md",
+     "color": "#ff6b12",
+     "colorName": "Hi-Vis Orange",
+     "fabric": "jersey",
+     "trimFactor": 1.0,
+     "ref": "6DNSZ",
+     "coloursToConfirm": true
+    },
+    {
+     "style": "Bisley Hi-Vis Drill Shirt",
+     "cut": "shirt_hivis_md",
+     "color": "#d4f000",
+     "colorName": "Hi-Vis Yellow",
+     "fabric": "twill",
+     "trimFactor": 1.0,
+     "ref": "BS6896",
+     "coloursToConfirm": true
+    },
+    {
+     "style": "Bisley Hi-Vis Drill Shirt",
+     "cut": "shirt_hivis_md",
+     "color": "#ff6b12",
+     "colorName": "Hi-Vis Orange",
+     "fabric": "twill",
+     "trimFactor": 1.0,
+     "ref": "BS6896",
+     "coloursToConfirm": true
     }
    ]
   },
@@ -3487,6 +3953,26 @@
      "fabric": "canvas",
      "trimFactor": 1.0,
      "ref": "1001"
+    },
+    {
+     "style": "Carrie Apron",
+     "cut": "apron_carrie_md",
+     "color": "#000000",
+     "colorName": "Black",
+     "fabric": "canvas",
+     "trimFactor": 1.0,
+     "ref": "1082",
+     "coloursToConfirm": true
+    },
+    {
+     "style": "Carrie Apron",
+     "cut": "apron_carrie_md",
+     "color": "#fbf7ee",
+     "colorName": "Natural",
+     "fabric": "canvas",
+     "trimFactor": 1.0,
+     "ref": "1082",
+     "coloursToConfirm": true
     }
    ],
    "soon": [
@@ -3500,577 +3986,863 @@
  "layout": [
   {
    "group": "essential_tees",
-   "slot": 35,
-   "sHome": 3.0799,
+   "slot": 3,
    "style": "Staple Tee",
    "cut": "tee_staple_md",
    "color": "#512024",
    "colorName": "Burgundy",
    "fabric": "jersey",
    "trimFactor": 0.93,
-   "ref": "5001"
+   "ref": "5001",
+   "sHome": 1.4791
   },
   {
    "group": "essential_tees",
-   "slot": 38,
-   "sHome": 3.23,
+   "slot": 6,
    "style": "Staple Tee",
    "cut": "tee_staple_md",
    "color": "#3c2d26",
    "colorName": "Dark Chocolate",
    "fabric": "jersey",
    "trimFactor": 0.93,
-   "ref": "5001"
+   "ref": "5001",
+   "sHome": 1.6291
   },
   {
    "group": "essential_tees",
-   "slot": 41,
-   "sHome": 3.38,
+   "slot": 9,
    "style": "Staple Tee",
    "cut": "tee_staple_md",
    "color": "#f4f0d7",
    "colorName": "Butter",
    "fabric": "jersey",
    "trimFactor": 0.93,
-   "ref": "5001"
+   "ref": "5001",
+   "sHome": 1.7792
   },
   {
    "group": "essential_tees",
-   "slot": 44,
-   "sHome": 3.5301,
+   "slot": 12,
    "style": "Staple Tee",
    "cut": "tee_staple_md",
    "color": "#a4a4a2",
    "colorName": "Grey Marle",
    "fabric": "marle",
    "trimFactor": 0.93,
-   "ref": "5001"
+   "ref": "5001",
+   "sHome": 1.9292
   },
   {
    "group": "essential_tees",
-   "slot": 47,
-   "sHome": 3.6801,
+   "slot": 15,
    "style": "Staple Tee",
    "cut": "tee_staple_md",
    "color": "#ffffff",
    "colorName": "White",
    "fabric": "jersey",
    "trimFactor": 0.93,
-   "ref": "5001"
+   "ref": "5001",
+   "sHome": 2.0793
   },
   {
    "group": "essential_tees",
-   "slot": 50,
-   "sHome": 3.8302,
+   "slot": 18,
    "style": "Staple Tee",
    "cut": "tee_staple_md",
    "color": "#4e4a36",
    "colorName": "Army",
    "fabric": "jersey",
    "trimFactor": 0.93,
-   "ref": "5001"
+   "ref": "5001",
+   "sHome": 2.2294
   },
   {
    "group": "essential_tees",
-   "slot": 53,
-   "sHome": 3.9803,
+   "slot": 21,
    "style": "Staple Tee",
    "cut": "tee_staple_md",
    "color": "#1e202c",
    "colorName": "Navy",
    "fabric": "jersey",
    "trimFactor": 0.93,
-   "ref": "5001"
+   "ref": "5001",
+   "sHome": 2.3794
   },
   {
    "group": "essential_tees",
-   "slot": 56,
-   "sHome": 4.1303,
+   "slot": 24,
    "style": "Staple Tee",
    "cut": "tee_staple_md",
    "color": "#74929a",
    "colorName": "Slate Blue",
    "fabric": "jersey",
    "trimFactor": 0.93,
-   "ref": "5001"
+   "ref": "5001",
+   "sHome": 2.5295
   },
   {
    "group": "essential_tees",
-   "slot": 62,
-   "sHome": 4.4304,
+   "slot": 30,
    "style": "Classic Tee",
-   "cut": "tee_staple",
+   "cut": "tee_classic_md",
    "color": "#ffffff",
    "colorName": "White",
    "fabric": "jersey",
    "trimFactor": 0.93,
-   "placeholder": true,
-   "ref": "5026"
+   "ref": "5026",
+   "sHome": 2.8296
   },
   {
    "group": "essential_tees",
-   "slot": 65,
-   "sHome": 4.5805,
+   "slot": 33,
    "style": "Classic Tee",
-   "cut": "tee_staple",
+   "cut": "tee_classic_md",
    "color": "#000000",
    "colorName": "Black",
    "fabric": "jersey",
    "trimFactor": 0.93,
-   "placeholder": true,
-   "ref": "5026"
+   "ref": "5026",
+   "sHome": 2.9797
+  },
+  {
+   "group": "essential_tees",
+   "slot": 39,
+   "style": "Staple L/S Tee",
+   "cut": "tee_staple_ls_md",
+   "color": "#ffffff",
+   "colorName": "White",
+   "fabric": "jersey",
+   "trimFactor": 0.93,
+   "ref": "5020",
+   "coloursToConfirm": true,
+   "sHome": 3.2798
+  },
+  {
+   "group": "essential_tees",
+   "slot": 42,
+   "style": "Staple L/S Tee",
+   "cut": "tee_staple_ls_md",
+   "color": "#000000",
+   "colorName": "Black",
+   "fabric": "jersey",
+   "trimFactor": 0.93,
+   "ref": "5020",
+   "coloursToConfirm": true,
+   "sHome": 3.4298
+  },
+  {
+   "group": "essential_tees",
+   "slot": 48,
+   "style": "Barnard Tank",
+   "cut": "tank_barnard_md",
+   "color": "#ffffff",
+   "colorName": "White",
+   "fabric": "jersey",
+   "trimFactor": 0.93,
+   "ref": "5025",
+   "coloursToConfirm": true,
+   "sHome": 3.73
+  },
+  {
+   "group": "essential_tees",
+   "slot": 51,
+   "style": "Barnard Tank",
+   "cut": "tank_barnard_md",
+   "color": "#000000",
+   "colorName": "Black",
+   "fabric": "jersey",
+   "trimFactor": 0.93,
+   "ref": "5025",
+   "coloursToConfirm": true,
+   "sHome": 3.88
   },
   {
    "group": "heavyweight_tees",
-   "slot": 120,
-   "sHome": 7.3316,
+   "slot": 63,
    "style": "Heavy Tee",
-   "cut": "tee_regular",
+   "cut": "tee_heavy_md",
    "color": "#000000",
    "colorName": "Black",
    "fabric": "jersey",
    "trimFactor": 1.0,
-   "placeholder": true,
-   "ref": "5080"
+   "ref": "5080",
+   "sHome": 4.4803
   },
   {
    "group": "heavyweight_tees",
-   "slot": 123,
-   "sHome": 7.4817,
+   "slot": 66,
    "style": "Heavy Tee",
-   "cut": "tee_regular",
+   "cut": "tee_heavy_md",
    "color": "#e4e0d4",
    "colorName": "Ecru",
    "fabric": "jersey",
    "trimFactor": 1.0,
-   "placeholder": true,
-   "ref": "5080"
+   "ref": "5080",
+   "sHome": 4.6303
   },
   {
    "group": "heavyweight_tees",
-   "slot": 129,
-   "sHome": 7.7818,
+   "slot": 72,
    "style": "Block Oversized Tee",
-   "cut": "tee_boxy",
+   "cut": "tee_block_md",
    "color": "#000000",
    "colorName": "Black",
    "fabric": "jersey",
    "trimFactor": 1.0,
-   "placeholder": true,
-   "ref": "5052"
+   "ref": "5052",
+   "sHome": 4.9304
   },
   {
    "group": "heavyweight_tees",
-   "slot": 132,
-   "sHome": 7.9318,
+   "slot": 75,
    "style": "Block Oversized Tee",
-   "cut": "tee_boxy",
+   "cut": "tee_block_md",
    "color": "#e4e0d4",
    "colorName": "Ecru",
    "fabric": "jersey",
    "trimFactor": 1.0,
-   "placeholder": true,
-   "ref": "5052"
+   "ref": "5052",
+   "sHome": 5.0805
   },
   {
    "group": "heavyweight_tees",
-   "slot": 138,
-   "sHome": 8.232,
+   "slot": 81,
    "style": "Staple Stone Wash Tee",
-   "cut": "tee_regular",
+   "cut": "tee_stonewash_md",
    "color": "#302c2b",
    "colorName": "Black Stone",
    "fabric": "stonewash",
    "trimFactor": 1.08,
-   "ref": "5040"
+   "ref": "5040",
+   "sHome": 5.3806
   },
   {
    "group": "heavyweight_tees",
-   "slot": 141,
-   "sHome": 8.382,
+   "slot": 84,
    "style": "Staple Stone Wash Tee",
-   "cut": "tee_regular",
+   "cut": "tee_stonewash_md",
    "color": "#88878d",
    "colorName": "Ash Stone",
    "fabric": "stonewash",
    "trimFactor": 1.08,
-   "ref": "5040"
+   "ref": "5040",
+   "sHome": 5.5307
   },
   {
    "group": "heavyweight_tees",
-   "slot": 144,
-   "sHome": 8.5321,
+   "slot": 87,
    "style": "Staple Stone Wash Tee",
-   "cut": "tee_regular",
+   "cut": "tee_stonewash_md",
    "color": "#3c4259",
    "colorName": "Blue Stone",
    "fabric": "stonewash",
    "trimFactor": 1.08,
-   "ref": "5040"
+   "ref": "5040",
+   "sHome": 5.6807
   },
   {
    "group": "heavyweight_tees",
-   "slot": 150,
-   "sHome": 8.8322,
+   "slot": 93,
    "style": "Stone Wash Heavy Tee",
-   "cut": "tee_boxy",
+   "cut": "tee_stonewash_heavy_md",
    "color": "#302c2b",
    "colorName": "Black Stone",
    "fabric": "stonewash",
    "trimFactor": 1.08,
-   "ref": "5085"
+   "ref": "5085",
+   "sHome": 5.9809
   },
   {
    "group": "heavyweight_tees",
-   "slot": 153,
-   "sHome": 8.9823,
+   "slot": 96,
    "style": "Stone Wash Heavy Tee",
-   "cut": "tee_boxy",
+   "cut": "tee_stonewash_heavy_md",
    "color": "#4e4e4e",
    "colorName": "Grey Stone",
    "fabric": "stonewash",
    "trimFactor": 1.08,
-   "ref": "5085"
+   "ref": "5085",
+   "sHome": 6.1309
   },
   {
    "group": "heavyweight_tees",
-   "slot": 156,
-   "sHome": 9.1323,
+   "slot": 99,
    "style": "Stone Wash Heavy Tee",
-   "cut": "tee_boxy",
+   "cut": "tee_stonewash_heavy_md",
    "color": "#717171",
    "colorName": "Coal Stone",
    "fabric": "stonewash",
    "trimFactor": 1.08,
-   "ref": "5085"
+   "ref": "5085",
+   "sHome": 6.281
   },
   {
    "group": "womens",
-   "slot": 211,
-   "sHome": 11.8834,
+   "slot": 111,
    "style": "Wo's Maple Tee",
-   "cut": "tee_staple",
+   "cut": "tee_wos_maple_md",
    "color": "#ffffff",
    "colorName": "White",
    "fabric": "jersey",
    "trimFactor": 0.93,
-   "placeholder": true,
-   "ref": "4001"
+   "ref": "4001",
+   "sHome": 6.8812
   },
   {
    "group": "womens",
-   "slot": 214,
-   "sHome": 12.0335,
+   "slot": 114,
    "style": "Wo's Maple Tee",
-   "cut": "tee_staple",
+   "cut": "tee_wos_maple_md",
    "color": "#f6d5c6",
    "colorName": "Pale Pink",
    "fabric": "jersey",
    "trimFactor": 0.93,
-   "placeholder": true,
-   "ref": "4001"
+   "ref": "4001",
+   "sHome": 7.0313
   },
   {
    "group": "womens",
-   "slot": 220,
-   "sHome": 12.3336,
+   "slot": 120,
    "style": "Wo's Faded Rib Crop Tank",
-   "cut": "tank_crop",
+   "cut": "tank_crop_md",
    "color": "#424243",
    "colorName": "Faded Black",
    "fabric": "rib",
    "trimFactor": 1.22,
-   "ref": "4035"
+   "ref": "4035",
+   "sHome": 7.3314
   },
   {
    "group": "womens",
-   "slot": 223,
-   "sHome": 12.4837,
+   "slot": 123,
    "style": "Wo's Faded Rib Crop Tank",
-   "cut": "tank_crop",
+   "cut": "tank_crop_md",
    "color": "#797470",
    "colorName": "Faded Grey",
    "fabric": "rib",
    "trimFactor": 1.22,
-   "ref": "4035"
+   "ref": "4035",
+   "sHome": 7.4815
   },
   {
    "group": "womens",
-   "slot": 229,
-   "sHome": 12.7838,
+   "slot": 129,
    "style": "Wo's Faded Rib Tank",
-   "cut": "tank_reg",
+   "cut": "tank_reg_md",
    "color": "#424243",
    "colorName": "Faded Black",
    "fabric": "rib",
    "trimFactor": 1.22,
-   "ref": "4034"
+   "ref": "4034",
+   "sHome": 7.7816
   },
   {
    "group": "womens",
-   "slot": 232,
-   "sHome": 12.9338,
+   "slot": 132,
    "style": "Wo's Faded Rib Tank",
-   "cut": "tank_reg",
+   "cut": "tank_reg_md",
    "color": "#797470",
    "colorName": "Faded Grey",
    "fabric": "rib",
    "trimFactor": 1.22,
-   "ref": "4034"
+   "ref": "4034",
+   "sHome": 7.9316
   },
   {
-   "group": "hoodies",
-   "slot": 287,
-   "sHome": 15.6849,
-   "style": "Relax Hood",
-   "cut": "hood_standard",
+   "group": "womens",
+   "slot": 138,
+   "style": "Wo's Crop Tee",
+   "cut": "tee_wos_crop_md",
+   "color": "#ffffff",
+   "colorName": "White",
+   "fabric": "jersey",
+   "trimFactor": 0.93,
+   "ref": "4062",
+   "coloursToConfirm": true,
+   "sHome": 8.2318
+  },
+  {
+   "group": "womens",
+   "slot": 141,
+   "style": "Wo's Crop Tee",
+   "cut": "tee_wos_crop_md",
+   "color": "#000000",
+   "colorName": "Black",
+   "fabric": "jersey",
+   "trimFactor": 0.93,
+   "ref": "4062",
+   "coloursToConfirm": true,
+   "sHome": 8.3818
+  },
+  {
+   "group": "womens",
+   "slot": 147,
+   "style": "Wo's Relax Crew",
+   "cut": "crew_wos_relax_md",
+   "color": "#000000",
+   "colorName": "Black",
+   "fabric": "fleece",
+   "trimFactor": 0.95,
+   "ref": "4160",
+   "coloursToConfirm": true,
+   "sHome": 8.6819
+  },
+  {
+   "group": "womens",
+   "slot": 153,
+   "style": "Wo's Relax Crew",
+   "cut": "crew_wos_relax_md",
+   "color": "#a4a4a2",
+   "colorName": "Grey Marle",
+   "fabric": "fleece",
+   "trimFactor": 0.95,
+   "ref": "4160",
+   "coloursToConfirm": true,
+   "sHome": 8.9821
+  },
+  {
+   "group": "womens",
+   "slot": 162,
+   "style": "Wo's Relax Hood",
+   "cut": "hood_wos_relax_md",
+   "color": "#000000",
+   "colorName": "Black",
+   "fabric": "fleece",
+   "trimFactor": 0.95,
+   "ref": "4161",
+   "coloursToConfirm": true,
+   "sHome": 9.4322
+  },
+  {
+   "group": "womens",
+   "slot": 168,
+   "style": "Wo's Relax Hood",
+   "cut": "hood_wos_relax_md",
+   "color": "#a4a4a2",
+   "colorName": "Grey Marle",
+   "fabric": "fleece",
+   "trimFactor": 0.95,
+   "ref": "4161",
+   "coloursToConfirm": true,
+   "sHome": 9.7324
+  },
+  {
+   "group": "womens",
+   "slot": 177,
+   "style": "Wo's Relax Crop Hood",
+   "cut": "hood_wos_crop_md",
+   "color": "#000000",
+   "colorName": "Black",
+   "fabric": "fleece",
+   "trimFactor": 0.95,
+   "ref": "4168",
+   "coloursToConfirm": true,
+   "sHome": 10.1825
+  },
+  {
+   "group": "womens",
+   "slot": 183,
+   "style": "Wo's Relax Crop Hood",
+   "cut": "hood_wos_crop_md",
+   "color": "#a4a4a2",
+   "colorName": "Grey Marle",
+   "fabric": "fleece",
+   "trimFactor": 0.95,
+   "ref": "4168",
+   "coloursToConfirm": true,
+   "sHome": 10.4827
+  },
+  {
+   "group": "crews",
+   "slot": 198,
+   "style": "Heavy Crew",
+   "cut": "crew_heavy_md",
    "color": "#000000",
    "colorName": "Black",
    "fabric": "fleece",
    "trimFactor": 0.93,
-   "ref": "5161"
+   "ref": "5145",
+   "sHome": 11.233
+  },
+  {
+   "group": "crews",
+   "slot": 204,
+   "style": "Heavy Crew",
+   "cut": "crew_heavy_md",
+   "color": "#d1cdca",
+   "colorName": "Bone",
+   "fabric": "fleece",
+   "trimFactor": 0.93,
+   "ref": "5145",
+   "sHome": 11.5331
+  },
+  {
+   "group": "crews",
+   "slot": 210,
+   "style": "Heavy Crew",
+   "cut": "crew_heavy_md",
+   "color": "#323031",
+   "colorName": "Coal",
+   "fabric": "fleece",
+   "trimFactor": 0.93,
+   "ref": "5145",
+   "sHome": 11.8332
+  },
+  {
+   "group": "crews",
+   "slot": 216,
+   "style": "Heavy Crew",
+   "cut": "crew_heavy_md",
+   "color": "#1d342a",
+   "colorName": "Pine Green",
+   "fabric": "fleece",
+   "trimFactor": 0.93,
+   "ref": "5145",
+   "sHome": 12.1333
   },
   {
    "group": "hoodies",
-   "slot": 293,
-   "sHome": 15.9851,
+   "slot": 231,
    "style": "Relax Hood",
-   "cut": "hood_standard",
+   "cut": "hood_relax_md",
+   "color": "#000000",
+   "colorName": "Black",
+   "fabric": "fleece",
+   "trimFactor": 0.93,
+   "ref": "5161",
+   "sHome": 12.8836
+  },
+  {
+   "group": "hoodies",
+   "slot": 237,
+   "style": "Relax Hood",
+   "cut": "hood_relax_md",
    "color": "#a4a4a2",
    "colorName": "Grey Marle",
    "fabric": "marle",
    "trimFactor": 0.93,
-   "ref": "5161"
+   "ref": "5161",
+   "sHome": 13.1837
   },
   {
    "group": "hoodies",
-   "slot": 299,
-   "sHome": 16.2852,
+   "slot": 243,
    "style": "Relax Hood",
-   "cut": "hood_standard",
+   "cut": "hood_relax_md",
    "color": "#626367",
    "colorName": "Shadow",
    "fabric": "fleece",
    "trimFactor": 0.93,
-   "ref": "5161"
+   "ref": "5161",
+   "sHome": 13.4839
   },
   {
    "group": "hoodies",
-   "slot": 305,
-   "sHome": 16.5853,
+   "slot": 249,
    "style": "Relax Hood",
-   "cut": "hood_standard",
+   "cut": "hood_relax_md",
    "color": "#253668",
    "colorName": "Liberty",
    "fabric": "fleece",
    "trimFactor": 0.93,
-   "ref": "5161"
+   "ref": "5161",
+   "sHome": 13.784
   },
   {
    "group": "hoodies",
-   "slot": 311,
-   "sHome": 16.8854,
+   "slot": 255,
    "style": "Relax Hood",
-   "cut": "hood_standard",
+   "cut": "hood_relax_md",
    "color": "#e4e0d4",
    "colorName": "Ecru",
    "fabric": "fleece",
    "trimFactor": 0.93,
-   "ref": "5161"
+   "ref": "5161",
+   "sHome": 14.0841
   },
   {
    "group": "hoodies",
-   "slot": 320,
-   "sHome": 17.3356,
+   "slot": 264,
    "style": "Heavy Hood",
-   "cut": "hood_standard",
+   "cut": "hood_heavy_md",
    "color": "#000000",
    "colorName": "Black",
    "fabric": "fleece",
    "trimFactor": 0.93,
-   "placeholder": true,
-   "ref": "5146"
+   "ref": "5146",
+   "sHome": 14.5343
   },
   {
    "group": "hoodies",
-   "slot": 326,
-   "sHome": 17.6357,
+   "slot": 270,
    "style": "Heavy Hood",
-   "cut": "hood_standard",
+   "cut": "hood_heavy_md",
    "color": "#d1cdca",
    "colorName": "Bone",
    "fabric": "fleece",
    "trimFactor": 0.93,
-   "placeholder": true,
-   "ref": "5146"
+   "ref": "5146",
+   "sHome": 14.8344
   },
   {
    "group": "hoodies",
-   "slot": 335,
-   "sHome": 18.0859,
+   "slot": 279,
    "style": "Made Hood",
-   "cut": "hood_made",
+   "cut": "hood_made_md",
    "color": "#fbf7ee",
    "colorName": "Natural",
    "fabric": "fleece",
    "trimFactor": 0.93,
-   "ref": "5151"
+   "ref": "5151",
+   "sHome": 15.2846
   },
   {
    "group": "hoodies",
-   "slot": 342,
-   "sHome": 18.436,
+   "slot": 285,
    "style": "Made Hood",
-   "cut": "hood_made",
+   "cut": "hood_made_md",
    "color": "#a4a4a2",
    "colorName": "Grey Marle",
    "fabric": "marle",
    "trimFactor": 0.93,
-   "ref": "5151"
+   "ref": "5151",
+   "sHome": 15.5847
   },
   {
    "group": "hoodies",
-   "slot": 349,
-   "sHome": 18.7862,
+   "slot": 291,
    "style": "Made Hood",
-   "cut": "hood_made",
+   "cut": "hood_made_md",
    "color": "#2d2a33",
    "colorName": "Ink Blue",
    "fabric": "fleece",
    "trimFactor": 0.93,
-   "ref": "5151"
+   "ref": "5151",
+   "sHome": 15.8848
   },
   {
    "group": "hoodies",
-   "slot": 356,
-   "sHome": 19.1363,
+   "slot": 297,
    "style": "Made Hood",
-   "cut": "hood_made",
+   "cut": "hood_made_md",
    "color": "#000000",
    "colorName": "Black",
    "fabric": "fleece",
    "trimFactor": 0.93,
-   "ref": "5151"
+   "ref": "5151",
+   "sHome": 16.1849
   },
   {
    "group": "hoodies",
-   "slot": 366,
-   "sHome": 19.6365,
+   "slot": 306,
    "style": "Heavy Zip Hood",
-   "cut": "hood_zip",
+   "cut": "hood_zip_md",
    "color": "#000000",
    "colorName": "Black",
    "fabric": "fleece",
    "trimFactor": 0.93,
-   "ref": "5148"
+   "ref": "5148",
+   "sHome": 16.6351
   },
   {
-   "group": "hoodies",
-   "slot": 372,
-   "sHome": 19.9366,
-   "style": "Heavy Zip Hood",
-   "cut": "hood_zip",
-   "color": "#000000",
-   "colorName": "Black",
-   "fabric": "fleece",
-   "trimFactor": 0.93,
-   "ref": "5148"
+   "group": "workwear",
+   "slot": 321,
+   "style": "JB's Hi-Vis Polo",
+   "cut": "polo_hivis_md",
+   "color": "#d4f000",
+   "colorName": "Hi-Vis Yellow",
+   "fabric": "jersey",
+   "trimFactor": 1.0,
+   "ref": "6HVNC",
+   "coloursToConfirm": true,
+   "sHome": 17.3854
+  },
+  {
+   "group": "workwear",
+   "slot": 325,
+   "style": "JB's Hi-Vis Polo",
+   "cut": "polo_hivis_md",
+   "color": "#ff6b12",
+   "colorName": "Hi-Vis Orange",
+   "fabric": "jersey",
+   "trimFactor": 1.0,
+   "ref": "6HVNC",
+   "coloursToConfirm": true,
+   "sHome": 17.5855
+  },
+  {
+   "group": "workwear",
+   "slot": 332,
+   "style": "JB's Hi-Vis Zip Vest",
+   "cut": "vest_hivis_md",
+   "color": "#d4f000",
+   "colorName": "Hi-Vis Yellow",
+   "fabric": "jersey",
+   "trimFactor": 1.0,
+   "ref": "6DNSZ",
+   "coloursToConfirm": true,
+   "sHome": 17.9356
+  },
+  {
+   "group": "workwear",
+   "slot": 336,
+   "style": "JB's Hi-Vis Zip Vest",
+   "cut": "vest_hivis_md",
+   "color": "#ff6b12",
+   "colorName": "Hi-Vis Orange",
+   "fabric": "jersey",
+   "trimFactor": 1.0,
+   "ref": "6DNSZ",
+   "coloursToConfirm": true,
+   "sHome": 18.1357
+  },
+  {
+   "group": "workwear",
+   "slot": 343,
+   "style": "Bisley Hi-Vis Drill Shirt",
+   "cut": "shirt_hivis_md",
+   "color": "#d4f000",
+   "colorName": "Hi-Vis Yellow",
+   "fabric": "twill",
+   "trimFactor": 1.0,
+   "ref": "BS6896",
+   "coloursToConfirm": true,
+   "sHome": 18.4859
+  },
+  {
+   "group": "workwear",
+   "slot": 347,
+   "style": "Bisley Hi-Vis Drill Shirt",
+   "cut": "shirt_hivis_md",
+   "color": "#ff6b12",
+   "colorName": "Hi-Vis Orange",
+   "fabric": "twill",
+   "trimFactor": 1.0,
+   "ref": "BS6896",
+   "coloursToConfirm": true,
+   "sHome": 18.6859
   },
   {
    "group": "accessories",
-   "slot": 430,
-   "sHome": 22.8378,
+   "slot": 360,
    "style": "Access Cap",
    "cut": "cap_sixpanel",
    "color": "#e4e0d4",
    "colorName": "Ecru",
    "fabric": "twill",
    "trimFactor": 1.0,
-   "ref": "1130"
+   "ref": "1130",
+   "sHome": 19.3362
   },
   {
    "group": "accessories",
-   "slot": 434,
-   "sHome": 23.0379,
+   "slot": 364,
    "style": "Access Cap",
    "cut": "cap_sixpanel",
    "color": "#d1cdca",
    "colorName": "Bone",
    "fabric": "twill",
    "trimFactor": 1.0,
-   "ref": "1130"
+   "ref": "1130",
+   "sHome": 19.5363
   },
   {
    "group": "accessories",
-   "slot": 438,
-   "sHome": 0.0801,
+   "slot": 368,
    "style": "Access Cap",
    "cut": "cap_sixpanel",
    "color": "#323031",
    "colorName": "Coal",
    "fabric": "twill",
    "trimFactor": 1.0,
-   "ref": "1130"
+   "ref": "1130",
+   "sHome": 19.7364
   },
   {
    "group": "accessories",
-   "slot": 442,
-   "sHome": 0.2801,
+   "slot": 372,
    "style": "Access Cap",
    "cut": "cap_sixpanel",
    "color": "#000000",
    "colorName": "Black",
    "fabric": "twill",
    "trimFactor": 1.0,
-   "ref": "1130"
+   "ref": "1130",
+   "sHome": 19.9364
   },
   {
    "group": "accessories",
-   "slot": 448,
-   "sHome": 0.5803,
+   "slot": 379,
    "style": "Carrie Tote \u00b7 Canvas",
    "cut": "tote_canvas",
    "color": "#d1cdca",
    "colorName": "Bone",
    "fabric": "canvas",
    "trimFactor": 1.0,
-   "ref": "1001"
+   "ref": "1001",
+   "sHome": 20.2866
   },
   {
    "group": "accessories",
-   "slot": 457,
-   "sHome": 1.0304,
-   "style": "Carrie Tote \u00b7 Heavy Canvas",
-   "cut": "tote_heavycanvas",
-   "color": "#d1cdca",
-   "colorName": "Bone",
-   "fabric": "canvas",
-   "trimFactor": 1.0,
-   "ref": "1001"
-  },
-  {
-   "group": "accessories",
-   "slot": 3,
-   "sHome": 1.4793,
+   "slot": 388,
    "style": "Carrie Tote \u00b7 Canvas",
    "cut": "tote_canvas",
    "color": "#000000",
    "colorName": "Black",
    "fabric": "canvas",
    "trimFactor": 1.0,
-   "ref": "1001"
+   "ref": "1001",
+   "sHome": 20.7368
   },
   {
    "group": "accessories",
-   "slot": 12,
-   "sHome": 1.9294,
+   "slot": 400,
+   "style": "Carrie Tote \u00b7 Heavy Canvas",
+   "cut": "tote_heavycanvas",
+   "color": "#d1cdca",
+   "colorName": "Bone",
+   "fabric": "canvas",
+   "trimFactor": 1.0,
+   "ref": "1001",
+   "sHome": 21.337
+  },
+  {
+   "group": "accessories",
+   "slot": 409,
    "style": "Carrie Tote \u00b7 Heavy Canvas",
    "cut": "tote_heavycanvas",
    "color": "#000000",
    "colorName": "Black",
    "fabric": "canvas",
    "trimFactor": 1.0,
-   "ref": "1001"
+   "ref": "1001",
+   "sHome": 21.7872
+  },
+  {
+   "group": "accessories",
+   "slot": 421,
+   "style": "Carrie Apron",
+   "cut": "apron_carrie_md",
+   "color": "#000000",
+   "colorName": "Black",
+   "fabric": "canvas",
+   "trimFactor": 1.0,
+   "ref": "1082",
+   "coloursToConfirm": true,
+   "sHome": 22.3874
+  },
+  {
+   "group": "accessories",
+   "slot": 427,
+   "style": "Carrie Apron",
+   "cut": "apron_carrie_md",
+   "color": "#fbf7ee",
+   "colorName": "Natural",
+   "fabric": "canvas",
+   "trimFactor": 1.0,
+   "ref": "1082",
+   "coloursToConfirm": true,
+   "sHome": 22.6875
   }
  ],
  "cameras": {
@@ -4103,6 +4875,29 @@
  },
  "extraGlbs": [
   "tote-carrie.glb",
-  "tee-staple-5001.glb"
+  "tee-staple-5001.glb",
+  "tee-classic-5026.glb",
+  "tee-staple-ls-5020.glb",
+  "tank-barnard-5025.glb",
+  "tee-heavy-5080.glb",
+  "tee-block-5052.glb",
+  "tee-stonewash-5040.glb",
+  "tee-stonewash-heavy-5085.glb",
+  "tee-wos-maple-4001.glb",
+  "tee-wos-crop-4062.glb",
+  "tank-wos-rib-crop-4035.glb",
+  "tank-wos-rib-4034.glb",
+  "crew-wos-relax-4160.glb",
+  "hood-wos-relax-4161.glb",
+  "hood-wos-crop-4168.glb",
+  "crew-heavy-5145.glb",
+  "hood-relax-5161.glb",
+  "hood-heavy-5146.glb",
+  "hood-made-5151.glb",
+  "hood-zip-5148.glb",
+  "polo-hivis-6hvnc.glb",
+  "vest-hivis-6dnsz.glb",
+  "shirt-hivis-bs6896.glb",
+  "apron-carrie-1082.glb"
  ]
 }

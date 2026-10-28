@@ -16,4 +16,6 @@ HTTPS host (GitHub + jsDelivr, or Cloudflare Pages). No orders or customer files
 All paths are relative to `cmgo-store.js`, so the folder works from any address.
 Optional attributes: `assets-url` (files somewhere else), `brand`.
 
-Rebuild: `npx esbuild build/store.js --bundle --format=iife --minify --target=es2022 --outfile=dist/cmgo-store.js`
+Rebuild: `cd build && npm i && npm run build` (writes `../cmgo-store.js`). `build/` holds the component sources, copied from the Cmgo Showroom artifact.
+
+Belt garments draped in Marvelous Designer are one GLB each (listed under `extraGlbs` in `conveyor-catalogue.json`).

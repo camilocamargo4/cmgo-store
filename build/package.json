@@ -1,0 +1,2 @@
+{ "private": true, "scripts": { "build": "esbuild store.js --bundle --format=iife --minify --target=es2022 --outfile=../cmgo-store.js" },
+  "dependencies": { "three": "0.169.0" }, "devDependencies": { "esbuild": "^0.24.0" } }
