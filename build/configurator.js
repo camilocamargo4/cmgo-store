@@ -13,6 +13,7 @@
  */
 
 import { Pendulum, attachCloth } from './cloth.js';
+import { PRICING, garmentPrice, printPrice } from './pricing.js';
 
 const MM_PER_INCH = 25.4;
 const MAX_TEXTURE_PX = 2048;
@@ -206,6 +207,15 @@ textarea{width:100%;min-height:58px;padding:8px;border:1px solid #e4e4e7;border-
 .alert.ok{background:#f2f8f3;border:1px solid #d6e8da;color:#2f5d3c}
 .alert svg{width:13px;height:13px;flex:none;margin-top:1px}
 input[type=file]{display:none}
+.est{border:1px solid #e4e4e7;border-radius:8px;padding:10px 12px;background:#fafafa}
+.est h4{margin:0 0 6px}
+.est .lines{display:grid;grid-template-columns:1fr auto;gap:3px 12px;margin:0;font-size:12px}
+.est dt{color:#55555c}.est dt span{color:#9a9aa1;font-size:11px}
+.est dd{margin:0;text-align:right;font-variant-numeric:tabular-nums;color:#1b1c1e}
+.est .sum{border-top:1px solid #e4e4e7;padding-top:4px;margin-top:2px;font-weight:600;color:#1b1c1e}
+.est .total{display:flex;justify-content:space-between;align-items:baseline;margin-top:8px;padding-top:8px;border-top:1px solid #1b1c1e;font-size:12px;color:#55555c}
+.est .total b{font-size:18px;color:#1b1c1e;font-variant-numeric:tabular-nums}
+.est .note{margin:6px 0 0;font-size:11px;line-height:1.45;color:#77777e}
 `;
 
 // --- component --------------------------------------------------------------
@@ -436,6 +446,35 @@ class CmgoConfigurator extends HTMLElement {
     this.#layoutEditor();
   }
 
+  /** Live estimate: the garment (AS Colour cost + markup, see pricing.js) plus a price per
+   *  print, times the total quantity. The style comes from the conveyor pick when there is one. */
+  #paintEstimate() {
+    const el = this.shadowRoot.querySelector('[data-est]'); if (!el || !this.#product) return;
+    const p = this.#product, pid = this.getAttribute('product-id');
+    const esc = (v) => String(v).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    const sel = globalThis.__CMGO_SELECTED;
+    const picked = sel && sel.productId === pid;
+    const ref = picked && sel.ref ? sel.ref : PRICING.defaultRef[pid];
+    const style = picked && sel.style ? sel.style : p.name;
+    const money = (n) => `$${n.toFixed(2)}`;
+    const g = garmentPrice(ref);
+    if (g == null) {
+      el.innerHTML = `<h4>Estimate</h4><p class="note">We'll price this garment for you when we review your design.</p>`;
+      return;
+    }
+    const prints = p.printAreas.filter((a) => this.#placements.has(a.id)).map((a) => ({ label: a.label, price: printPrice(a.id) }));
+    const unit = g + prints.reduce((s, x) => s + x.price, 0);
+    const qty = Object.values(this.#sizes).reduce((a, b) => a + b, 0);
+    el.innerHTML = `<h4>Estimate<small>${PRICING.currency}</small></h4>
+      <dl class="lines">
+        <dt>${esc(style)}${ref ? ` <span>${esc(ref)}</span>` : ''}</dt><dd>${money(g)}</dd>
+        ${prints.map((x) => `<dt>${esc(x.label)} print</dt><dd>${money(x.price)}</dd>`).join('')}
+        <dt class="sum">Per piece</dt><dd class="sum">${money(unit)}</dd>
+      </dl>
+      <div class="total"><span>${qty ? `${qty} ${qty === 1 ? 'piece' : 'pieces'}` : 'Add quantities for a total'}</span><b>${qty ? money(unit * qty) : '—'}</b></div>
+      <p class="note">An estimate to give you an idea of cost. We confirm the final price after reviewing your artwork.</p>`;
+  }
+
   #paintPanel() {
     const p = this.#product;
     const panel = this.shadowRoot.querySelector('.panel');
@@ -474,6 +513,7 @@ class CmgoConfigurator extends HTMLElement {
           <label>${s}<input type="number" min="0" step="1" placeholder="0"
                             data-size="${s}" value="${this.#sizes[s] ?? ''}"></label>`).join('')}</div>
       </div>
+      <div class="est" data-est aria-live="polite"></div>
       <div>
         <h4><i>5</i>Your details<small>for your quote</small></h4>
         <div class="details">
@@ -497,6 +537,7 @@ class CmgoConfigurator extends HTMLElement {
     panel.querySelectorAll('input[data-size]').forEach((i) => i.oninput = () => {
       const n = parseInt(i.value, 10);
       if (n > 0) this.#sizes[i.dataset.size] = n; else delete this.#sizes[i.dataset.size];
+      this.#paintEstimate();
     });
     panel.querySelectorAll('input[data-cust]').forEach((i) => i.oninput = () => {
       this.#customer[i.dataset.cust] = i.value;
@@ -509,6 +550,7 @@ class CmgoConfigurator extends HTMLElement {
     panel.querySelector('[data-act="submit"]').onclick = () => this.#submit();
 
     this.#paintMeta();
+    this.#paintEstimate();
   }
 
   /**

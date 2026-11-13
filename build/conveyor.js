@@ -23,11 +23,13 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { toCreasedNormals } from 'three/addons/utils/BufferGeometryUtils.js';
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { GTAOPass } from 'three/addons/postprocessing/GTAOPass.js';
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+import { makeSeparator } from './sep.js';
 
 /** Which showroom configurator each garment cut opens. The regular tank has none yet. */
 const PRODUCT_FOR = (cut) =>
@@ -37,7 +39,7 @@ const PRODUCT_FOR = (cut) =>
 
 /** Styles with their own pattern customiser, by AS Colour code. Several styles share one belt
  *  mesh (the 5146 rides on the 5161's hoodie), so the cut alone cannot say which pattern to open. */
-const PRODUCT_BY_REF = { '5001': 'tee-staple-5001', '5146': 'hoodie-5146' };
+const PRODUCT_BY_REF = { '5001': 'tee-staple-5001', '5146': 'hoodie-5146', '1001': 'tote-1001' };
 const productFor = (it) => PRODUCT_BY_REF[String(it.ref ?? '')] ?? PRODUCT_FOR(it.cut);
 
 const HANGER = { wood: 'Wood hanger', black: 'Black hanger', hook: 'Black hook' };
@@ -71,6 +73,33 @@ const CSS = `
 .views button:hover{background:rgba(255,255,255,.08)}
 .views button[aria-pressed=true]{background:#f4f2ef;color:#17181b;text-shadow:none}
 .views kbd{font:500 9px 'IBM Plex Mono',ui-monospace,monospace;opacity:.55}
+.views button.saved::after{content:'';width:5px;height:5px;border-radius:50%;background:#f0ae86}
+.views button[data-edit]{margin-left:4px;box-shadow:-3px 0 0 -2px rgba(255,255,255,.25)}
+.stage canvas.editing{cursor:move}
+/* frame editor: move the camera by hand and save the frame to a view */
+.frames{position:absolute;z-index:3;left:14px;bottom:14px;display:grid;gap:9px;padding:12px;border-radius:12px;width:min(310px,calc(100% - 28px));
+  background:rgba(16,16,20,.5);-webkit-backdrop-filter:blur(18px) saturate(1.35);backdrop-filter:blur(18px) saturate(1.35);
+  border:1px solid rgba(255,255,255,.16);box-shadow:0 16px 40px rgba(0,0,0,.28);color:#f4f2ef;font-size:12px;text-shadow:0 1px 2px rgba(0,0,0,.35)}
+.frames .ftitle{font-weight:600;font-size:13px}
+.frames .fhint,.frames .fov,.frames .fsave{font-size:11px;color:#c3beb8}
+.frames .fov,.frames .fsave,.frames .frow{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.frames .fov input{flex:1;accent-color:#f4f2ef}
+.frames .fov output{font-family:'IBM Plex Mono',ui-monospace,monospace;color:#f4f2ef;min-width:3ch;text-align:right}
+.frames button{font:500 11px Archivo,ui-sans-serif,system-ui,sans-serif;padding:5px 9px;border-radius:7px;cursor:pointer;
+  border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#f4f2ef;text-shadow:none}
+.frames button:hover{border-color:#f4f2ef}
+.frames button.primary{background:#f4f2ef;color:#17181b;border-color:#f4f2ef}
+.frames .msg{font-size:11px;color:#7fd19f;min-height:1.2em}
+.frames button[aria-pressed=true]{background:#f4f2ef;color:#17181b;border-color:#f4f2ef}
+.frames{max-height:calc(100% - 70px);overflow-y:auto;scrollbar-width:thin}
+.frames .marks{display:flex;flex-wrap:wrap;gap:6px}
+.frames .marks:empty::before{content:'None yet';font-size:11px;color:#c3beb8}
+.frames .mark{display:inline-flex;border:1px solid rgba(255,255,255,.2);border-radius:7px;overflow:hidden}
+.frames .mark button{border:0;border-radius:0;padding:5px 9px;font-family:'IBM Plex Mono',ui-monospace,monospace}
+.frames .mark button[data-del]{padding:5px 6px;color:#c3beb8;border-left:1px solid rgba(255,255,255,.12)}
+.frames .mark button[data-del]:hover{color:#f0ae86}
+.frames textarea{width:100%;height:120px;resize:vertical;font:10px/1.4 'IBM Plex Mono',ui-monospace,monospace;background:rgba(0,0,0,.35);color:#f4f2ef;
+  border:1px solid rgba(255,255,255,.16);border-radius:7px;padding:6px}
 .loading{position:absolute;inset:0;display:grid;place-items:center;z-index:4;background:var(--stage);
   font:12px 'IBM Plex Mono',ui-monospace,monospace;letter-spacing:.08em;color:#f4f4f2}
 .loading b{display:block;font-weight:500;color:#ffd7c2;margin-bottom:4px}
@@ -175,7 +204,21 @@ class CmgoConveyor extends HTMLElement {
           <button type="button" data-view="storage" aria-pressed="false"><kbd>2</kbd>Storage run</button>
           <button type="button" data-view="bay" aria-pressed="false"><kbd>3</kbd>Loading bay</button>
           <button type="button" data-view="close" aria-pressed="false"><kbd>4</kbd>Loading point</button>
+          <button type="button" data-edit aria-pressed="false" title="Move the camera by hand and save frames" hidden>Edit frames</button>
         </nav>
+        <div class="frames" hidden>
+          <span class="ftitle">Frame editor</span>
+          <span class="fhint">Drag to orbit · right-drag (or shift-drag) to pan · scroll to zoom</span>
+          <span class="fsave">Projection <button type="button" data-proj="persp" aria-pressed="true">Perspective</button><button type="button" data-proj="ortho" aria-pressed="false">Orthographic</button></span>
+          <label class="fov">Lens <input type="range" min="12" max="90" step="1" data-fov><output data-fovout></output>°</label>
+          <span class="fsave">Save this frame as
+            <button type="button" data-save="full" title="Full belt">1</button><button type="button" data-save="storage" title="Storage run">2</button><button type="button" data-save="bay" title="Loading bay">3</button><button type="button" data-save="close" title="Loading point">4</button></span>
+          <span class="fsave">Bookmarks <button type="button" data-mark-add title="Keep this frame as a bookmark (views 1-4 are untouched)">+ Save bookmark</button></span>
+          <span class="marks" data-marks></span>
+          <span class="frow"><button type="button" data-reset>Reset this view</button><button type="button" data-copy>Copy frames</button><button type="button" class="primary" data-done>Done</button></span>
+          <span class="msg" data-msg></span>
+          <textarea data-json hidden readonly aria-label="Saved frames as JSON"></textarea>
+        </div>
         <div class="loading"><div><b>Loading the conveyor</b>garments, belt and hangers</div></div>
         <aside class="panel" aria-live="polite">
           <div class="head">
@@ -243,9 +286,9 @@ class CmgoConveyor extends HTMLElement {
     renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
     renderer.toneMapping = THREE.AgXToneMapping;
     renderer.toneMappingExposure = 1.1;
-    // Soft shadows: the garments shade each other along the belt and throw a
-    // shadow onto the back wall, which is what makes the rig read as a real room.
-    renderer.shadowMap.enabled = true;
+    // No cast shadows: the lights still light everything the same; depth in the folds
+    // comes from the ambient occlusion pass. (Set true to bring the soft shadows back.)
+    renderer.shadowMap.enabled = false;
     renderer.shadowMap.type = THREE.VSMShadowMap;
     stage.appendChild(renderer.domElement);
 
@@ -260,7 +303,7 @@ class CmgoConveyor extends HTMLElement {
     // warm rim from behind the belt to separate dark garments from the grey room.
     scene.add(new THREE.HemisphereLight(0xf4f6ff, 0x55565b, 0.55));
     const key = new THREE.DirectionalLight(0xfffaf2, 2.4); scene.add(key); scene.add(key.target);
-    key.castShadow = true;
+    key.castShadow = false;
     key.shadow.mapSize.set(2048, 2048);
     key.shadow.radius = 7; key.shadow.blurSamples = 12;
     key.shadow.bias = -0.0004; key.shadow.normalBias = 0.02;
@@ -269,10 +312,16 @@ class CmgoConveyor extends HTMLElement {
     const cyc = new THREE.MeshStandardMaterial({ color: '#8b8c8f', roughness: 1 });
     const floor = new THREE.Mesh(new THREE.PlaneGeometry(90, 90), cyc); floor.rotation.x = -Math.PI / 2; scene.add(floor);
     const wall = new THREE.Mesh(new THREE.PlaneGeometry(90, 14), cyc); wall.position.set(-1.4, 7, -8); wall.rotation.y = Math.PI / 2; scene.add(wall);
-    floor.receiveShadow = wall.receiveShadow = true;
+    floor.receiveShadow = true;
+    wall.receiveShadow = false;      // the back wall stays clean: no garment shadows on it
 
     // No free camera: it only ever moves between the four fixed views below.
     const camera = new THREE.PerspectiveCamera(38, 1, 0.05, 120);
+    // Orthographic twin: follows the perspective camera's position and aim, and sizes itself to
+    // show what the lens shows at the target's distance. Used by views saved as orthographic.
+    const ortho = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.05, 200);
+    let orthoOn = false;
+    const viewCam = () => (orthoOn ? ortho : camera);
     const camTarget = new THREE.Vector3();
 
     // ---------------------------------------------------------------- assets
@@ -302,6 +351,90 @@ class CmgoConveyor extends HTMLElement {
       for (const g of [gltf, ...extras]) { const o = g.scene.getObjectByName(n); if (o) { o.removeFromParent(); return o; } }
     };
     cat.conveyor.meshes.forEach((n) => { const o = take(n); if (o) { o.traverse((m) => { if (m.isMesh) { m.castShadow = true; m.receiveShadow = true; } }); scene.add(o); } });
+
+    let ceiling = null, ceilingY = Infinity;          // hidden whenever the camera rises above it
+    // Ceiling: an endless concrete waffle slab sitting flush on the rig's top beam (the
+    // rods run up into it). It runs far past
+    // the fog, so it reads as infinite. It casts no shadow (the key light sits above it) and takes none.
+    {
+      const bb = new THREE.Box3();
+      cat.conveyor.meshes.forEach((n) => { const o = scene.getObjectByName(n); if (o) bb.expandByObject(o); });
+      const beam = scene.getObjectByName('Conveyor_STEEL');           // the black steel: its top is the top beam
+      const ceilY = beam ? new THREE.Box3().setFromObject(beam).max.y : cat.conveyor.railHeights.storage + 0.7;
+      // The rig now hangs from the slab itself: the galvanised rods and braces stop at the top of
+      // the beam instead of running on up past it (clipped, so the model file stays as it is).
+      renderer.localClippingEnabled = true;
+      const above = new THREE.Plane(new THREE.Vector3(0, -1, 0), ceilY);   // keeps y <= ceilY
+      scene.getObjectByName('Conveyor_STEEL_GALV')?.traverse((m) => {
+        if (!m.isMesh) return;
+        m.material = m.material.clone(); m.material.clippingPlanes = [above]; m.material.clipShadows = true;
+      });
+      const c = Number.isFinite(bb.max.y) ? bb.getCenter(new THREE.Vector3()) : new THREE.Vector3();
+      const MOD = 0.9, RIB = 0.15, DEPTH = 0.34, SPAN = 160, n = Math.round(SPAN / MOD);
+      const concrete = new THREE.MeshStandardMaterial({ color: '#a3a4a7', roughness: 0.95 });
+      const ribs = new THREE.InstancedMesh(new THREE.BoxGeometry(SPAN, DEPTH, RIB), concrete, 2 * (n + 1));
+      const m4 = new THREE.Matrix4(), one = new THREE.Vector3(1, 1, 1), pos = new THREE.Vector3();
+      const q0 = new THREE.Quaternion(), q90 = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI / 2);
+      for (let i = 0; i <= n; i++) {
+        const k = (i - n / 2) * MOD;
+        ribs.setMatrixAt(2 * i, m4.compose(pos.set(c.x, ceilY + DEPTH / 2, c.z + k), q0, one));        // ribs along x
+        ribs.setMatrixAt(2 * i + 1, m4.compose(pos.set(c.x + k, ceilY + DEPTH / 2, c.z), q90, one));   // ribs along z
+      }
+      ribs.frustumCulled = false;
+      const slab = new THREE.Mesh(new THREE.PlaneGeometry(SPAN, SPAN), concrete);
+      slab.rotation.x = Math.PI / 2;                  // faces down
+      slab.position.set(c.x, ceilY + DEPTH, c.z);
+      ceiling = new THREE.Group(); ceilingY = ceilY;
+      for (const o of [ribs, slab]) { o.castShadow = false; o.receiveShadow = false; ceiling.add(o); }
+      scene.add(ceiling);
+    }
+
+    // Neon sign: the CMGO wordmark in blue neon tubes on the back wall, under the storage run.
+    // Drawn into a texture (glow passes, then a pale tube core), added on top of the wall, with a
+    // small blue light so the wall around it picks up the glow.
+    {
+      const W = 2048, H = 900, cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+      const g = cv.getContext('2d');
+      const BLUE = '#0b47ff', CORE = '#5f8cff';
+      const tube = (draw, width) => {
+        for (const [blur, a] of [[80, 0.85], [40, 1], [18, 1], [8, 1]]) {
+          g.shadowColor = BLUE; g.shadowBlur = blur; g.strokeStyle = `rgba(11,71,255,${a})`; g.lineWidth = width; draw();
+        }
+        g.shadowBlur = 6; g.shadowColor = '#2f66ff'; g.strokeStyle = CORE; g.lineWidth = width * 0.34; draw();
+      };
+      g.lineJoin = 'round'; g.lineCap = 'round'; g.textBaseline = 'alphabetic';
+      g.font = '900 380px "Arial Black", Archivo, "Helvetica Neue", sans-serif';
+      if ('letterSpacing' in g) g.letterSpacing = '6px';
+      const word = 'CMGO', ww = g.measureText(word).width, dotR = 34;
+      const x0 = (W - ww - dotR * 3) / 2, base = 520;
+      tube(() => g.strokeText(word, x0, base), 22);
+      tube(() => { g.beginPath(); g.arc(x0 + ww + dotR * 2, base - dotR, dotR, 0, Math.PI * 2); g.stroke(); }, 18);
+      g.font = '600 92px "Helvetica Neue", Arial, sans-serif';
+      if ('letterSpacing' in g) g.letterSpacing = '58px';
+      const sub = 'DESIGN', sw2 = g.measureText(sub).width;
+      tube(() => g.strokeText(sub, x0 + ww - sw2 + 40, base + 160), 9);
+      // fade the edges to nothing so the panel itself never shows
+      g.shadowBlur = 0; g.globalCompositeOperation = 'destination-in';
+      const fx = g.createLinearGradient(0, 0, W, 0);
+      fx.addColorStop(0, 'rgba(0,0,0,0)'); fx.addColorStop(0.08, '#000'); fx.addColorStop(0.92, '#000'); fx.addColorStop(1, 'rgba(0,0,0,0)');
+      g.fillStyle = fx; g.fillRect(0, 0, W, H);
+      const fy = g.createLinearGradient(0, 0, 0, H);
+      fy.addColorStop(0, 'rgba(0,0,0,0)'); fy.addColorStop(0.1, '#000'); fy.addColorStop(0.9, '#000'); fy.addColorStop(1, 'rgba(0,0,0,0)');
+      g.fillStyle = fy; g.fillRect(0, 0, W, H);
+      g.globalCompositeOperation = 'source-over';
+      const tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 8;
+      // Sits flat on the wall (no gap for the shading pass to outline), drawn over it.
+      const sign = new THREE.Mesh(new THREE.PlaneGeometry(3.4, 3.4 * H / W),
+        new THREE.MeshBasicMaterial({ map: tex, transparent: true, depthWrite: false, toneMapped: false, fog: false,
+          polygonOffset: true, polygonOffsetFactor: -4, polygonOffsetUnits: -4 }));
+      const SIGN = { y: 1.5, z: -8.6 };                  // centre on the wall: below the storage run's hems
+      sign.position.set(wall.position.x + 0.002, SIGN.y, SIGN.z);
+      sign.rotation.y = Math.PI / 2;                      // faces into the room
+      scene.add(sign);
+      const glow = new THREE.PointLight(0x0b47ff, 12, 5.5, 2);
+      glow.position.set(wall.position.x + 0.6, SIGN.y, SIGN.z);
+      scene.add(glow);
+    }
     const tpl = {};
     for (const [cut, c] of Object.entries(cat.cuts)) tpl[cut] = { lod0: take(c.meshLOD0), lod1: take(c.meshLOD1) };
 
@@ -309,6 +442,15 @@ class CmgoConveyor extends HTMLElement {
     const P = cat.conveyor.path.map((p) => new THREE.Vector3(...p)); P.push(P[0].clone());
     const S = [0];
     for (let i = 1; i < P.length; i++) S.push(S[i - 1] + P[i].distanceTo(P[i - 1]));
+    // Direction at each path point: the average of the pieces either side. A garment's heading is
+    // blended between these, so it turns continuously round a bend instead of jumping a few
+    // degrees at every point of the path.
+    const NSEG = P.length - 1;                         // P[NSEG] repeats P[0]
+    const SD = []; for (let k = 0; k < NSEG; k++) SD.push(new THREE.Vector3().subVectors(P[k + 1], P[k]).setY(0).normalize());
+    const TV = P.map((_, i) => {
+      const v = new THREE.Vector3().addVectors(SD[(i - 1 + NSEG) % NSEG], SD[i % NSEG]);
+      return v.lengthSq() > 1e-8 ? v.normalize() : SD[i % NSEG].clone();
+    });
     const L = S[S.length - 1];
     const UP = new THREE.Vector3(0, 1, 0);
 
@@ -332,7 +474,7 @@ class CmgoConveyor extends HTMLElement {
       let lo = 0, hi = S.length - 1;
       while (hi - lo > 1) { const m = (lo + hi) >> 1; if (S[m] <= s) lo = m; else hi = m; }
       const t = (s - S[lo]) / Math.max(1e-9, S[hi] - S[lo]);
-      oP.lerpVectors(P[lo], P[hi], t); oT.subVectors(P[hi], P[lo]).setY(0).normalize();
+      oP.lerpVectors(P[lo], P[hi], t); oT.lerpVectors(TV[lo], TV[hi], t).normalize();
     };
 
     // fabric materials: shared per colour on the belt, cloned for the piece in hand
@@ -374,6 +516,18 @@ class CmgoConveyor extends HTMLElement {
     });
     $('[data-count]').textContent = `${items.length} garments · ${new Set(items.map((i) => i.group)).size} groups`;
 
+    // Soft separation: a garment is a thin box on its hook, and neighbours that overlap on a bend
+    // push each other aside (swivel + tilt about the hook), then ease back on the straight.
+    // Footprints come from the catalogue (cat.footprints, measured from the garment models).
+    const sv = new THREE.Vector3(), st = new THREE.Vector3();
+    const separator = makeSeparator(items, L, (s, o) => { sample(s, sv, st); o.x = sv.x; o.z = sv.z; o.tx = st.x; o.tz = st.z; }, YAW, cat.footprints || {});
+    const skip = new Uint8Array(items.length);
+    const stepSeparation = (dt, belt) => {
+      items.forEach((it, i) => { skip[i] = (it.held || it === pulled) ? 1 : 0; });   // the piece in hand is clear of the belt
+      separator.step(dt, belt, skip);
+      items.forEach((it, i) => { it.sepY = separator.yaw[i]; it.sepT = separator.tilt[i]; });
+    };
+
     // ---------------------------------------------------------------- belt motion
     let offset = 0, vel = 0, mode = 'idle', target = null, goal = 0;
     const IDLE = reduce ? 0 : 0.12, VMAX = 1.6, ACC = 0.9;
@@ -395,8 +549,8 @@ class CmgoConveyor extends HTMLElement {
         it.obj.position.addScaledVector(fr, PULL * k);
         it.obj.position.y += 0.03 * k;
       }
-      if (it.yaw) it.obj.rotateY(it.yaw);      // turned on its hook
-      if (it.swing) it.obj.rotateX(it.swing);  // swinging front-to-back
+      if (it.yaw || it.sepY) it.obj.rotateY((it.yaw || 0) + (it.sepY || 0));      // turned on its hook (+ pushed aside by a neighbour)
+      if (it.swing || it.sepT) it.obj.rotateX((it.swing || 0) + (it.sepT || 0));  // swinging front-to-back (+ tilted clear)
       if (it.roll) it.obj.rotateZ(it.roll);    // swinging side-to-side
     };
     const travel = (it) => mod(cat.conveyor.loadingTipS - (it.sHome + offset), L);
@@ -444,12 +598,14 @@ class CmgoConveyor extends HTMLElement {
     const tipFront = tt.clone().applyAxisAngle(UP, YAW);
     const tipSide = new THREE.Vector3().crossVectors(UP, tipFront).normalize();
     const closeT = tip.clone().add(V(0, -0.36, 0));
+    // The four views, framed by hand in the frame editor (Nov 2026). Scene coordinates, metres.
     const VIEWS = {
-      full:    { p: V(nearX + 20, fullY, midZ), t: V(nearX - 0.375, fullY, midZ), hfov: 34 },   // pose recomputed by fullPose()
-      storage: { p: V(nearX + 5.2, storeY - 0.35, runZ), t: V(nearX, storeY - 0.45, runZ), hfov: 64 },
-      bay:     { p: tip.clone().add(V(5.7, 1.6, 1.5)), t: tip.clone().add(V(0.2, 0.3, -2.9)), hfov: 62 },
-      close:   { p: closeT.clone().addScaledVector(tipFront, 2.15).addScaledVector(tipSide, -0.55).add(V(0, 0.1, 0)), t: closeT, hfov: 40 },
+      full:    { p: V(10.779, 1.699, -6.102), t: V(1.5, 1.699, -6.102), hfov: 65 },     // eye height, looking up at the rig
+      storage: { p: V(7.077, 2.778, -8.432), t: V(1.898, 2.302, -8.432), hfov: 70 },
+      bay:     { p: V(7.133, 3.164, 0.886), t: V(1.681, 1.875, -3.476), hfov: 62 },
+      close:   { p: V(4.764, 1.572, 1.052), t: V(1.732, 1.613, -1.058), hfov: 40 },
     };
+    const FIXED_FULL = true;           // Full belt uses its frame above, not the automatic side elevation (fullPose)
     // Full belt is a true side elevation that fills the frame: the camera backs off
     // exactly far enough for the whole belt (and its hanging garments) to fit the
     // free width of the stage, whatever shape the screen is.
@@ -478,10 +634,27 @@ class CmgoConveyor extends HTMLElement {
     // and the floor gives it room. The close-up frames its own garment and stays put.
     const LIFT = 0.1;                // fraction of the stage height
     let lf = 0;
-    const lfFor = (name) => ({ full: 0.4, storage: 0.6, bay: 1, close: 0 }[name] ?? 0);   // Full belt has the least headroom
-    const swFor = (name) => (name === 'full' ? 0 : 1);
+    const LF = { full: 0, storage: 0, bay: 0, close: 0 };   // the hand-framed views need no vertical shift
+    const lfFor = (name) => LF[name] ?? 0;   // Full belt has the least headroom
+    const SW = { full: 0, storage: 1, bay: 1, close: 1 };
+    const swFor = (name) => SW[name] ?? 1;
+    const ORTHO = {};                // views saved as orthographic
+    // frames saved in the frame editor (by view name), and whether the editor is open
+    const SAVED_KEY = 'cmgo-conveyor-frames';
+    let saved = {}, editing = false;
+    let fdb = null;                  // the artifact's database, once it answers (frames live there; this browser is the fallback)
     const cam = { from: null, to: null, t: 1 };
     const room = $('.room'), panel = $('.panel');
+    let oShift = 0, oLift = 0;
+    const syncOrtho = () => {
+      if (!orthoOn) return;
+      const w = stage.clientWidth || 1, h = stage.clientHeight || 1;
+      const top = camera.position.distanceTo(camTarget) * Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2);
+      ortho.left = -top * camera.aspect; ortho.right = top * camera.aspect; ortho.top = top; ortho.bottom = -top;
+      if (oShift || oLift) ortho.setViewOffset(w, h, -oShift, oLift, w, h); else ortho.clearViewOffset();
+      ortho.position.copy(camera.position); ortho.quaternion.copy(camera.quaternion);
+      ortho.updateProjectionMatrix(); ortho.updateMatrixWorld();
+    };
     const project = () => {
       const w = stage.clientWidth, h = stage.clientHeight; if (!w || !h) return;
       const aspect = w / h;
@@ -491,6 +664,7 @@ class CmgoConveyor extends HTMLElement {
       const lift = LIFT * h * lf;
       if (shift || lift) camera.setViewOffset(w, h, -shift, lift, w, h); else camera.clearViewOffset();
       camera.updateProjectionMatrix();
+      oShift = shift; oLift = lift; syncOrtho();
     };
     // Ambient occlusion darkens the folds, the armpits and where the cloth meets the
     // hanger: the depth cues the flat garments were missing. Skipped on small screens
@@ -513,19 +687,165 @@ class CmgoConveyor extends HTMLElement {
       const w = stage.clientWidth, h = stage.clientHeight; if (!w || !h) return;
       renderer.setSize(w, h, false);
       if (composer) { composer.setPixelRatio(renderer.getPixelRatio()); composer.setSize(w, h); }
-      if (view === 'full' && cam.t >= 1) { const f = fullPose(); camera.position.copy(f.p); camTarget.copy(f.t); camera.lookAt(camTarget); }
+      if (!FIXED_FULL && view === 'full' && !saved.full && !editing && cam.t >= 1) { const f = fullPose(); camera.position.copy(f.p); camTarget.copy(f.t); camera.lookAt(camTarget); }
       project();
     };
     const goView = (name, instant = false) => {
-      const v = name === 'full' ? { ...VIEWS.full, ...fullPose() } : VIEWS[name]; view = name;
+      const v = !FIXED_FULL && name === 'full' && !saved.full ? { ...VIEWS.full, ...fullPose() } : VIEWS[name]; view = name;
       if (name !== 'close') lastWide = name;
-      this.shadowRoot.querySelectorAll('.views button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.view === name)));
+      this.shadowRoot.querySelectorAll('.views button[data-view]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.view === name)));
+      const toLf = editing ? 0 : lfFor(name);             // the editor shows the bare camera: no vertical shift
       cam.from = { p: camera.position.clone(), t: camTarget.clone(), h: hfov, sw, lf };
-      cam.to = { p: v.p.clone(), t: v.t.clone(), h: v.hfov, sw: swFor(name), lf: lfFor(name) };
+      cam.to = { p: v.p.clone(), t: v.t.clone(), h: v.hfov, sw: swFor(name), lf: toLf, ortho: !!ORTHO[name] };
       cam.t = instant || reduce ? 1 : 0;
-      if (cam.t === 1) { camera.position.copy(v.p); camTarget.copy(v.t); hfov = v.hfov; sw = swFor(name); lf = lfFor(name); camera.lookAt(camTarget); project(); }
+      if (!ORTHO[name] || cam.t === 1) orthoOn = !!ORTHO[name];   // into perspective at once; into ortho on arrival
+      if (cam.t === 1) { camera.position.copy(v.p); camTarget.copy(v.t); hfov = v.hfov; sw = swFor(name); lf = toLf; camera.lookAt(camTarget); project(); }
+      if (editing) { const f = String(Math.round(v.hfov)); fovIn.value = f; fovOut.textContent = f; markProj(!!ORTHO[name]); }
     };
-    this.shadowRoot.querySelectorAll('.views button').forEach((b) => b.addEventListener('click', () => goView(b.dataset.view)));
+    this.shadowRoot.querySelectorAll('.views button[data-view]').forEach((b) => b.addEventListener('click', () => goView(b.dataset.view)));
+
+    // ---------------------------------------------------------------- frame editor
+    // Move the camera by hand (orbit, pan, zoom, lens) and save what you see as any of the
+    // four views. Frames are kept in this browser and can be copied out as JSON.
+    const ORIG = {
+      views: Object.fromEntries(Object.entries(VIEWS).map(([k, v]) => [k, { p: v.p.clone(), t: v.t.clone(), hfov: v.hfov }])),
+      lf: { ...LF }, sw: { ...SW }, ortho: { ...ORTHO },
+    };
+    const applySaved = (name) => {
+      const s = saved[name]; if (!s) return;
+      VIEWS[name] = { p: V(...s.p), t: V(...s.t), hfov: s.hfov };
+      LF[name] = 0; SW[name] = s.sw ?? 0; ORTHO[name] = !!s.ortho;
+    };
+    try { saved = JSON.parse(localStorage.getItem(SAVED_KEY) || '{}') || {}; } catch { saved = {}; }
+    Object.keys(saved).forEach(applySaved);
+    const framesEl = $('.frames'), editBtn = $('[data-edit]'), fovIn = $('[data-fov]'), fovOut = $('[data-fovout]');
+    const msgEl = $('[data-msg]'), jsonEl = $('[data-json]'), canvasEl = renderer.domElement;
+    let controls = null, sayT = 0;
+    const markProj = (o) => this.shadowRoot.querySelectorAll('[data-proj]').forEach((b) => b.setAttribute('aria-pressed', String((b.dataset.proj === 'ortho') === o)));
+    this.shadowRoot.querySelectorAll('[data-proj]').forEach((b) => b.addEventListener('click', () => {
+      orthoOn = b.dataset.proj === 'ortho'; markProj(orthoOn); syncOrtho();
+    }));
+    let vq = Promise.resolve(), bq = Promise.resolve();      // one write at a time per document
+    const dbWrite = (q, path, body) => q.then(() => fdb.doc(path).set(body)).then(() => true, (e) => {
+      console.warn('[cmgo-conveyor] frames not saved', e); say('Could not save to the database'); return false;
+    });
+    const persist = () => {
+      if (fdb) { vq = dbWrite(vq, 'frames/views', { views: saved }); return; }
+      try { localStorage.setItem(SAVED_KEY, JSON.stringify(saved)); } catch {}
+    };
+    const markSaved = () => this.shadowRoot.querySelectorAll('.views button[data-view]').forEach((b) => b.classList.toggle('saved', !!saved[b.dataset.view]));
+    const say = (t) => { msgEl.textContent = t; clearTimeout(sayT); sayT = setTimeout(() => { msgEl.textContent = ''; }, 3000); };
+    const r3 = (v) => [v.x, v.y, v.z].map((n) => Math.round(n * 1000) / 1000);
+    const setEditing = (on) => {
+      editing = on; framesEl.hidden = !on;
+      editBtn.setAttribute('aria-pressed', String(on));
+      canvasEl.classList.toggle('editing', on);
+      if (on) {
+        if (cam.t < 1) { cam.t = 1; camera.position.copy(cam.to.p); camTarget.copy(cam.to.t); hfov = cam.to.h; sw = cam.to.sw; }
+        lf = 0; project();
+        if (!controls) {
+          controls = new OrbitControls(camera, canvasEl);
+          controls.target = camTarget;
+          controls.enableDamping = false;
+          controls.rotateSpeed = 0.55; controls.panSpeed = 0.8; controls.zoomSpeed = 0.6;
+        }
+        controls.enabled = true; controls.update();
+        const f = String(Math.round(hfov)); fovIn.value = f; fovOut.textContent = f;
+        markProj(orthoOn);
+      } else {
+        if (controls) controls.enabled = false;
+        jsonEl.hidden = true;
+        goView(view);                                    // ease into the view's saved (or default) frame
+      }
+    };
+    editBtn.addEventListener('click', () => setEditing(!editing));
+    $('[data-done]').addEventListener('click', () => setEditing(false));
+    fovIn.addEventListener('input', () => { hfov = +fovIn.value; fovOut.textContent = fovIn.value; project(); });
+    this.shadowRoot.querySelectorAll('[data-save]').forEach((b) => b.addEventListener('click', () => {
+      const name = b.dataset.save;
+      saved[name] = { p: r3(camera.position), t: r3(camTarget), hfov: Math.round(hfov * 10) / 10, sw: Math.round(sw), ortho: orthoOn };
+      applySaved(name); persist(); markSaved();
+      view = name; if (name !== 'close') lastWide = name;
+      this.shadowRoot.querySelectorAll('.views button[data-view]').forEach((x) => x.setAttribute('aria-pressed', String(x.dataset.view === name)));
+      say(`Saved as view ${b.textContent}`);
+    }));
+    // Bookmarks: any number of extra frames (A, B, C...) to come back to. Kept in this browser,
+    // apart from views 1-4. Click one to fly there; save it as a view with 1-4 if you like it.
+    const MARKS_KEY = 'cmgo-conveyor-bookmarks';
+    let marks = [];
+    try { marks = JSON.parse(localStorage.getItem(MARKS_KEY) || '[]') || []; } catch { marks = []; }
+    const snap = () => ({ p: r3(camera.position), t: r3(camTarget), hfov: Math.round(hfov * 10) / 10, sw: Math.round(sw), ortho: orthoOn });
+    const markLabel = (i) => (i < 26 ? String.fromCharCode(65 + i) : `Z${i - 25}`);
+    const marksEl = $('[data-marks]');
+    const saveMarks = () => {
+      if (fdb) { bq = dbWrite(bq, 'frames/bookmarks', { list: marks }); return; }
+      try { localStorage.setItem(MARKS_KEY, JSON.stringify(marks)); } catch {}
+    };
+    const drawMarks = () => {
+      marksEl.innerHTML = '';
+      marks.forEach((f, i) => {
+        const el = document.createElement('span'); el.className = 'mark';
+        el.innerHTML = `<button type="button" data-go title="${f.ortho ? 'Orthographic' : 'Perspective'} · lens ${Math.round(f.hfov)}°">${markLabel(i)}</button><button type="button" data-del aria-label="Delete bookmark ${markLabel(i)}" title="Delete">×</button>`;
+        el.querySelector('[data-go]').addEventListener('click', () => { goFrame(f); say(`Bookmark ${markLabel(i)}`); });
+        el.querySelector('[data-del]').addEventListener('click', () => { marks.splice(i, 1); saveMarks(); drawMarks(); say(`Deleted bookmark ${markLabel(i)}`); });
+        marksEl.appendChild(el);
+      });
+    };
+    const goFrame = (f) => {
+      cam.from = { p: camera.position.clone(), t: camTarget.clone(), h: hfov, sw, lf };
+      cam.to = { p: V(...f.p), t: V(...f.t), h: f.hfov, sw: f.sw ?? sw, lf: 0, ortho: !!f.ortho };
+      cam.t = reduce ? 1 : 0;
+      if (!f.ortho || cam.t === 1) orthoOn = !!f.ortho;
+      if (cam.t === 1) { camera.position.copy(cam.to.p); camTarget.copy(cam.to.t); hfov = f.hfov; sw = cam.to.sw; lf = 0; camera.lookAt(camTarget); project(); }
+      markProj(!!f.ortho);
+      const fv = String(Math.round(f.hfov)); fovIn.value = fv; fovOut.textContent = fv;
+    };
+    $('[data-mark-add]').addEventListener('click', () => {
+      marks.push(snap()); saveMarks(); drawMarks();
+      say(`Saved bookmark ${markLabel(marks.length - 1)}`);
+    });
+    drawMarks();
+    // The artifact's database keeps views and bookmarks for every device (and Claude can read
+    // them). Frames this browser kept before move across once; the local copy is cleared only
+    // after the database confirms the write.
+    (async () => {
+      let d = null;
+      try { d = globalThis.claude?.use ? await globalThis.claude.use('db') : null; } catch { d = null; }
+      if (!d) return;                                  // no database in this view: frames stay in this browser
+      try {
+        const [v, b] = await Promise.all([d.doc('frames/views').get(), d.doc('frames/bookmarks').get()]);
+        const dbViews = (v.exists && v.data().views) || {};
+        const dbMarks = b.exists && Array.isArray(b.data().list) ? [...b.data().list] : [];
+        const localViews = saved, localMarks = marks;
+        const seen = new Set(dbMarks.map((m) => JSON.stringify(m)));
+        const list = [...dbMarks, ...localMarks.filter((m) => !seen.has(JSON.stringify(m)))];
+        const movedViews = Object.keys(localViews).some((k) => !(k in dbViews));
+        const movedMarks = list.length > dbMarks.length;
+        fdb = d;
+        editBtn.hidden = false;                        // the frame editor is a tool for where the database is (the artifact), not the live site
+        saved = { ...localViews, ...dbViews }; marks = list;
+        Object.keys(saved).forEach(applySaved);
+        markSaved(); drawMarks();
+        if (saved[view] && !editing && cam.t >= 1) goView(view, true);
+        if (movedViews) persist();
+        if (movedMarks) saveMarks();
+        const ok = (await vq) !== false && (await bq) !== false;
+        if (ok) { try { localStorage.removeItem(SAVED_KEY); localStorage.removeItem(MARKS_KEY); } catch {} }
+        if (movedViews || movedMarks) say(ok ? 'Frames moved to the database' : 'Frames kept in this browser for now');
+      } catch (e) { console.warn('[cmgo-conveyor] frames database unavailable', e); }
+    })();
+    $('[data-reset]').addEventListener('click', () => {
+      delete saved[view]; persist(); markSaved();
+      const o = ORIG.views[view];
+      VIEWS[view] = { p: o.p.clone(), t: o.t.clone(), hfov: o.hfov }; LF[view] = ORIG.lf[view]; SW[view] = ORIG.sw[view]; ORTHO[view] = !!ORIG.ortho[view];
+      goView(view); say('Back to the default frame');
+    });
+    $('[data-copy]').addEventListener('click', async () => {
+      const txt = JSON.stringify({ views: saved, bookmarks: marks }, null, 1);
+      jsonEl.value = txt; jsonEl.hidden = false; jsonEl.select();
+      try { await navigator.clipboard.writeText(txt); say('Frames copied'); } catch { say('Select the text below and copy it'); }
+    });
+    markSaved();
     const minBtn = $('[data-min]');
     const setMin = (on, remember = true) => {
       panel.classList.toggle('min', on);
@@ -541,6 +861,7 @@ class CmgoConveyor extends HTMLElement {
       if (this.#paused || e.ctrlKey || e.metaKey || e.altKey) return;
       const el = e.composedPath()[0];
       if (el && (el.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName))) return;
+      if (e.key === 'Escape' && editing) { setEditing(false); return; }
       const name = { 1: 'full', 2: 'storage', 3: 'bay', 4: 'close' }[e.key];
       if (name) goView(name);
     };
@@ -633,7 +954,7 @@ class CmgoConveyor extends HTMLElement {
       const it = target; swapLod(it, 0);
       it.swingV = reduce ? 0 : 0.3; pulled = it; if (reduce) pull = 1;
       if (panel.classList.contains('min')) setMin(false, false);   // the piece has arrived: show its controls
-      VIEWS.close = closeFor(it);
+      VIEWS.close = closeFor(it);                   // a clicked garment always gets its own close-up
       place(it);
       goView('close');
       status('hold', `At the loading point · slot ${slotLabel(it)}`);
@@ -643,6 +964,9 @@ class CmgoConveyor extends HTMLElement {
     };
     const release = (resume = true) => {
       const it = target; if (it && it.lod === 0) swapLod(it, 1);
+      // back to the Loading point frame (saved or default) for the 4 button
+      if (saved.close) applySaved('close');
+      else { const o = ORIG.views.close; VIEWS.close = { p: o.p.clone(), t: o.t.clone(), hfov: o.hfov }; }
       if (it) it.keepYaw = false;                 // back on the belt: let it turn home
       target = null;
       if (resume) {
@@ -710,12 +1034,13 @@ class CmgoConveyor extends HTMLElement {
     const pick = (e) => {
       const r = cvs.getBoundingClientRect();
       ptr.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
-      ray.setFromCamera(ptr, camera);
+      ray.setFromCamera(ptr, viewCam());
       const hit = ray.intersectObjects(items.map((i) => i.obj), true)[0];
       return hit && hit.object.userData.item !== undefined ? items[hit.object.userData.item] : null;
     };
     let grab = null, lastVel = 0;
     cvs.addEventListener('pointerdown', (e) => {
+      if (editing) return;                          // the frame editor owns the pointer
       if (e.pointerType === 'mouse' && e.button !== 0) return;
       const it = pick(e);
       grab = it && mode === 'idle'                  // the belt is locked while fetching or holding a piece
@@ -749,6 +1074,7 @@ class CmgoConveyor extends HTMLElement {
       });
     };
     cvs.addEventListener('pointermove', (e) => {
+      if (editing) return;
       if (grab && e.pointerId === grab.id && !grab.clickOnly) {
         const dt = Math.max(1, e.timeStamp - grab.t) / 1000;
         const dx = e.clientX - grab.x, dy = e.clientY - grab.y;
@@ -765,7 +1091,7 @@ class CmgoConveyor extends HTMLElement {
           const a3 = new THREE.Vector3(), b3 = new THREE.Vector3(), t3 = new THREE.Vector3();
           sample(grab.it.sHome + offset, a3, t3);
           b3.copy(a3).addScaledVector(t3, 0.25);
-          a3.project(camera); b3.project(camera);
+          a3.project(viewCam()); b3.project(viewCam());
           const r = cvs.getBoundingClientRect();
           const sx = (b3.x - a3.x) * r.width / 2, sy = -(b3.y - a3.y) * r.height / 2;   // pixels per 0.25 m of belt
           const len2 = sx * sx + sy * sy;
@@ -804,7 +1130,7 @@ class CmgoConveyor extends HTMLElement {
 
     const clock = new THREE.Clock();
     let slow = 0;
-    renderer.setAnimationLoop(() => {
+    renderer.setAnimationLoop(() => { try {
       const rawDt = clock.getDelta();
       const dt = Math.min(rawDt, 0.05);                   // physics steps stay small
       const camDt = Math.min(rawDt, 0.5);                 // camera moves take real time, even on a slow device
@@ -831,6 +1157,7 @@ class CmgoConveyor extends HTMLElement {
       }
       const beltAcc = clampA((vel - lastVel) / Math.max(dt, 1e-3), 8); lastVel = vel;
       const kick = reduce ? 0 : -beltAcc * dt * 0.3;       // hanging cloth lags behind the belt
+      stepSeparation(dt, offset);
       for (const it of items) {
         if (kick) { it.swingV += kick * 0.47; it.rollV += kick * 0.88; }
         if (!it.held) {
@@ -861,19 +1188,30 @@ class CmgoConveyor extends HTMLElement {
         hfov = cam.from.h + (cam.to.h - cam.from.h) * k;
         sw = cam.from.sw + (cam.to.sw - cam.from.sw) * k;
         lf = cam.from.lf + (cam.to.lf - cam.from.lf) * k;
+        if (cam.t >= 1) orthoOn = !!cam.to.ortho;
         project();
       }
       moveChain();
-      camera.lookAt(camTarget);
-      if (composer) {
+      if (editing && controls && cam.t >= 1) controls.update(); else camera.lookAt(camTarget);
+      syncOrtho();
+      // Perspective: the ceiling hides once the camera is above it. Orthographic: it also hides
+      // whenever the camera looks down (an axonometric leaves the roof off); level and
+      // upward views keep it.
+      if (ceiling) ceiling.visible = camera.position.y < ceilingY && (!orthoOn || camTarget.y - camera.position.y > -0.02 * camera.position.distanceTo(camTarget));
+      if (composer && !orthoOn) {                       // ambient occlusion is perspective-only
         composer.render(dt);
         // If ambient occlusion pushes the frame past ~28 ms for two seconds, drop it.
         if (rawDt < 0.25) slow = rawDt > 0.028 ? slow + rawDt : Math.max(0, slow - rawDt * 0.5);   // ignore tab switches
         if (slow > 2) { composer.dispose(); composer = null; console.info('[cmgo-conveyor] ambient occlusion off: device too slow'); }
       } else {
-        renderer.render(scene, camera);
+        renderer.render(scene, viewCam());
       }
-    });
+    } catch (err) {                                      // a broken frame says so instead of freezing silently
+      if (!this._loopErr) {
+        this._loopErr = true; console.error('[cmgo-conveyor] frame', err);
+        const s = this.shadowRoot.querySelector('[data-status]'); if (s) s.textContent = `Frame error: ${err && err.message}`;
+      }
+    } });
     this.#r = { renderer, scene, camera };
   }
 
@@ -892,6 +1230,8 @@ class CmgoConveyor extends HTMLElement {
     const found = P.colours.find((c) => c.hex.toUpperCase() === hex);
     const chosen = found || { name: it.colorName, hex };
     P.colours = [chosen, ...P.colours.filter((c) => c !== chosen)];
+    // Several styles share one customiser product: say which one was picked, for the estimate.
+    globalThis.__CMGO_SELECTED = { productId: id, ref: it.ref ?? null, style: it.style ?? null };
     const open = show.shadowRoot?.querySelector(`cmgo-configurator[product-id="${id}"]`);
     if (open) open.setAttribute('product-id', id);
     show.select(id);
